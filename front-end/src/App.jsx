@@ -14,7 +14,7 @@ function App() {
   const [responseMessage, setResponseMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8080/')
+    fetch('http://localhost:5000/')
       .then(res => res.text())
       .then(message => {
         setResponseMessage(message);

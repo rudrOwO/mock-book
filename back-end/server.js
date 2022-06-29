@@ -1,16 +1,19 @@
 const express = require("express");
+const cors = require("cors");
 const http = require("http");
 const { readFile } = require("fs").promises;
 const MongoClient = require("mongodb").MongoClient;
 
 const app = express();
-const PORT = 8080;
+const PORT = 5000;
 const mongurl = "mongodb://127.0.0.1:27017/game-of-thrones";
+
+app.use(cors({ origin: "*" }));
 
 // Express Code
 app.get("/", async (req, res) => {
   try {
-    res.send("Request Received");
+    res.send("Hola");
   } catch {
     res.status(500);
   }
