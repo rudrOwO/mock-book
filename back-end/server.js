@@ -34,5 +34,5 @@ MongoClient.connect(mongurl, { useNewUrlParser: true }, (err, client) => {
   console.log(`Database: ${dbName}`);
 
   const characters = db.collection("characters");
-  characters.insertOne({ name: "Anya Forger" });
+  // characters.insertOne({ name: "Anya Forger" });
 });
