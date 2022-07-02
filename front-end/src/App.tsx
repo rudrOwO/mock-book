@@ -3,24 +3,11 @@ import { ChakraProvider, Box, theme, Center, Flex, IconButton } from "@chakra-ui
 import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [responseMessage, setResponseMessage] = useState("");
-
-  useEffect(() => {
-    fetch(import.meta.env.VITE_SERVER_URL)
-      .then(res => res.text())
-      .then(message => {
-        setResponseMessage(message);
-        setLoading(false);
-      });
-  }, []);
-
   return (
     <ChakraProvider theme={theme}>
-      <Flex pt="5" alignItems="center" direction="column">
-        <Box pt="20">{loading ? "Loading" : responseMessage}</Box>
-        <ColorModeSwitcher />
-      </Flex>
+      <Center height="100vh" width="100%vw" bg="grey.100">
+        <Center bg="white" width={[1, 1, 1 / 2]} height="auto"></Center>
+      </Center>
     </ChakraProvider>
   );
 }
