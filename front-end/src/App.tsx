@@ -7,7 +7,7 @@ function App() {
   const [responseMessage, setResponseMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/")
+    fetch(import.meta.env.VITE_SERVER_URL)
       .then(res => res.text())
       .then(message => {
         setResponseMessage(message);
