@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChakraProvider, Box, theme, Center, Flex, IconButton } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 

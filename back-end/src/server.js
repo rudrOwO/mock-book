@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const http = require("http");
 const { readFile } = require("fs").promises;
 const MongoClient = require("mongodb").MongoClient;
 
@@ -13,7 +12,7 @@ app.use(cors({ origin: "*" }));
 // Express Code
 app.get("/", async (req, res) => {
   try {
-    res.send("Hola");
+    res.send("Aloha");
   } catch {
     res.status(500);
   }

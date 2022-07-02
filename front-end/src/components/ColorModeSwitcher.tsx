@@ -1,4 +1,3 @@
-import React from "react";
 import { useColorMode, useColorModeValue, IconButton } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
@@ -16,7 +15,6 @@ export const ColorModeSwitcher = (props: Props) => {
       aria-label={`Switch to ${text} mode`}
       variant="ghost"
       color="current"
-      marginLeft="2"
       onClick={toggleColorMode}
       icon={<SwitchIcon />}
       {...props}
