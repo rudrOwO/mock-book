@@ -20,11 +20,13 @@ import {
 
 interface Props {
   showError: boolean;
+  label: string;
+  type: string;
   setShowError?: Dispatch<SetStateAction<boolean>>;
 }
 
-export const Email = forwardRef<HTMLInputElement, Props>((props, ref) => {
-  const { showError, setShowError } = props;
+export const ControlledInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
+  const { showError, label, type } = props;
   const [input, setInput] = useState("");
 
   const handleInputChange = useCallback(
@@ -34,13 +36,9 @@ export const Email = forwardRef<HTMLInputElement, Props>((props, ref) => {
 
   return (
     <FormControl isInvalid={showError}>
-      <FormLabel htmlFor="email">Email</FormLabel>
-      <Input ref={ref} id="email" type="email" value={input} onChange={handleInputChange} />
-      {!showError ? (
-        <FormHelperText>Your email address is required for registration</FormHelperText>
-      ) : (
-        <FormErrorMessage>Email is required.</FormErrorMessage>
-      )}
+      <FormLabel htmlFor={label}>{label}</FormLabel>
+      <Input type={type} ref={ref} id={label} value={input} onChange={handleInputChange} />
+      {showError ? <FormErrorMessage>{`${label} is required`}</FormErrorMessage> : null}
     </FormControl>
   );
 });
