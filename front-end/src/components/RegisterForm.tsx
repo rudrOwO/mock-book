@@ -1,13 +1,13 @@
 import { Center, VStack } from "@chakra-ui/react";
-import { useRef, forwardRef, ReactNode, useEffect } from "react";
+import { useRef, useState, ReactNode, useEffect } from "react";
 import { useRefArray } from "../utils/useRefArray";
 import { Email } from "./Email";
 
 interface Props {}
 
 export const RegisterForm = (props: Props) => {
-  const {} = props;
   const refArray = useRefArray(4);
+  const [errorArray, setErrorArray] = useState([false, false, false, false]);
 
   return (
     <Center
@@ -19,7 +19,7 @@ export const RegisterForm = (props: Props) => {
       borderRadius="lg"
     >
       <VStack spacing={2}>
-        <Email showError={false} ref={refArray[0]} />
+        <Email showError={errorArray[0]} ref={refArray[0]} />
       </VStack>
     </Center>
   );
