@@ -37,7 +37,14 @@ export const ControlledInput = forwardRef<HTMLInputElement, Props>((props, ref) 
   return (
     <FormControl isInvalid={showError}>
       <FormLabel htmlFor={label}>{label}</FormLabel>
-      <Input type={type} ref={ref} id={label} value={input} onChange={handleInputChange} />
+      <Input
+        name={label}
+        type={type}
+        ref={ref}
+        id={label}
+        value={input}
+        onChange={handleInputChange}
+      />
       {showError ? <FormErrorMessage>{`${label} is required`}</FormErrorMessage> : null}
     </FormControl>
   );
