@@ -1,12 +1,26 @@
-import { useRef, forwardRef, ReactNode } from "react";
-import { Input, FormControl, FormLabel, FormErrorMessage, FormHelperText } from "@chakra-ui/react";
+import { Center, VStack } from "@chakra-ui/react";
+import { useRef, forwardRef, ReactNode, useEffect } from "react";
+import { useRefArray } from "../utils/useRefArray";
+import { Email } from "./Email";
 
-interface Props {
-  children: ReactNode;
-}
+interface Props {}
 
-export const ValidatedForm = (props: Props) => {
-  const { children } = props;
+export const RegisterForm = (props: Props) => {
+  const {} = props;
+  const refArray = useRefArray(4);
 
-  return { children };
+  return (
+    <Center
+      bg="white"
+      padding="2%"
+      width={["90%", "80%", "60%"]}
+      height="auto"
+      shadow="lg"
+      borderRadius="lg"
+    >
+      <VStack spacing={2}>
+        <Email showError={false} ref={refArray[0]} />
+      </VStack>
+    </Center>
+  );
 };
