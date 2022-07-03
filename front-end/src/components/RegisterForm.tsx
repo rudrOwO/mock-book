@@ -1,5 +1,5 @@
 import { Button, Center, VStack } from "@chakra-ui/react";
-import { useState, useCallback, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useCallback, Dispatch, SetStateAction } from "react";
 import { useRefArray } from "../utils/useRefArray";
 import { ControlledInput } from "./ControlledInput";
 
@@ -9,20 +9,17 @@ interface Props {
 
 export const RegisterForm = (props: Props) => {
   const inputFieldCount = 3;
-
   const { setIsAuthenticated } = props;
-
   const refArray = useRefArray(inputFieldCount);
   const [errorArray, setErrorArray] = useState<boolean[]>(Array(inputFieldCount));
 
-  const handleSubmit = useCallback(() => {
+  const validateForm = useCallback(() => {
     const newErrorArray = refArray.map(ref => !ref.current?.value);
     setErrorArray(newErrorArray);
+    return !newErrorArray.some(isBlank => isBlank);
+  }, [errorArray]);
 
-    if (newErrorArray.some(isBlank => isBlank)) {
-      return;
-    }
-
+  const submitFormRequest = useCallback(() => {
     const body = JSON.stringify({
       username: refArray[0].current?.value,
       email: refArray[1].current?.value,
@@ -40,10 +37,13 @@ export const RegisterForm = (props: Props) => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/register`, options)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         setIsAuthenticated(true);
       })
       .catch(err => console.error(err));
+  }, [errorArray]);
+
+  const handleSubmit = useCallback(() => {
+    if (validateForm()) submitFormRequest();
   }, [errorArray]);
 
   return (

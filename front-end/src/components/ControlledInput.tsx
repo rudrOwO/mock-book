@@ -22,7 +22,6 @@ interface Props {
   showError: boolean;
   label: string;
   type: string;
-  setShowError?: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ControlledInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
