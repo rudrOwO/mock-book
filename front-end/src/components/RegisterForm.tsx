@@ -52,7 +52,7 @@ export const RegisterForm = (props: Props) => {
       padding="2%"
       width={["90%", "80%", "60%"]}
       height="auto"
-      shadow="lg"
+      shadow="xl"
       borderRadius="lg"
     >
       <VStack spacing={5}>

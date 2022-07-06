@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import { register } from "./routes/register";
 const MongoClient = require("mongodb").MongoClient;
@@ -13,7 +13,9 @@ app.use(express.json());
 // Routers
 app.use("/register", register);
 
-app.listen(PORT, () => console.log("\x1b[36m%s\x1b[0m", `Server Running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log("\x1b[36m%s\x1b[0m", `Server Running on port ${PORT}`)
+);
 
 // Connect to MongoDB
 // const mongurl = "mongodb://127.0.0.1:27017/game-of-thrones";

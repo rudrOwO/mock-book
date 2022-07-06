@@ -1,22 +1,5 @@
-import {
-  useState,
-  useCallback,
-  useRef,
-  forwardRef,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
-  SyntheticEvent,
-  ChangeEvent,
-} from "react";
-import {
-  Center,
-  Input,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from "@chakra-ui/react";
+import { useState, useCallback, forwardRef, ChangeEvent } from "react";
+import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
 interface Props {
   showError: boolean;
