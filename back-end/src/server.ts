@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import { register } from "./routes/register";
-const MongoClient = require("mongodb").MongoClient;
 
 const app = express();
 const PORT = 5000;
@@ -14,7 +13,7 @@ app.use(express.json());
 app.use("/register", register);
 
 app.listen(PORT, () =>
-  console.log("\x1b[36m%s\x1b[0m", `Server Running on port ${PORT}`)
+  console.log("\x1b[36m%s\x1b[0m", `Server is Running on port ${PORT}`)
 );
 
 // Connect to MongoDB
