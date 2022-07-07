@@ -16,7 +16,7 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Center height="100vh" width="100%vw" bg="gray.100">
+      <Center height="100vh" width="100vw" bg="gray.100">
         {isAuthenticated ? (
           <Text>Home Page</Text>
         ) : (
