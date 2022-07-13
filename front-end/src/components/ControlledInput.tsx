@@ -1,4 +1,4 @@
-import { Dispatch, useCallback, ChangeEvent } from "react";
+import { Dispatch, useCallback, ChangeEvent, memo } from "react";
 import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { InputOptions } from "../models/InputOptions";
 import { ReducerAction } from "./RegisterForm";
@@ -8,9 +8,11 @@ interface Props extends InputOptions {
   dispatch: Dispatch<ReducerAction>;
 }
 
-export const ControlledInput = (props: Props) => {
+const ControlledInput = (props: Props) => {
   const { value, dispatch, label, type, name, isRequired } = props;
   const showError = value === "" && isRequired;
+
+  console.log(`${name} is re-rendered`);
 
   const handleInputChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) =>
@@ -35,3 +37,5 @@ export const ControlledInput = (props: Props) => {
     </FormControl>
   );
 };
+
+export default memo(ControlledInput);

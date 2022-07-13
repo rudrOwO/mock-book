@@ -1,7 +1,7 @@
 import { Button, Center, HStack, VStack } from "@chakra-ui/react";
 import { useMemo, useCallback, Dispatch, SetStateAction, useReducer } from "react";
 import { InputOptions } from "../models/InputOptions";
-import { ControlledInput } from "./ControlledInput";
+import ControlledInput from "./ControlledInput";
 
 interface Props {
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
