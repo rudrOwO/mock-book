@@ -1,5 +1,5 @@
 import { Button, Center, HStack, VStack } from "@chakra-ui/react";
-import { useMemo, useCallback, Dispatch, SetStateAction, useReducer } from "react";
+import { useMemo, useCallback, Dispatch, SetStateAction, useState } from "react";
 import { InputOptions } from "../models/InputOptions";
 import ControlledInput from "./ControlledInput";
 
@@ -7,30 +7,17 @@ interface Props {
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface ReducerState {
+export interface InputState {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
 }
 
-export interface ReducerAction {
-  property: string;
-  value: string;
-}
-
 export const RegisterForm = (props: Props) => {
   const { setIsAuthenticated } = props;
 
-  const reducer = useCallback(
-    (state: ReducerState, action: ReducerAction) => ({
-      ...state,
-      [action.property]: action.value,
-    }),
-    []
-  );
-
-  const [inputState, dispatch] = useReducer(reducer, {
+  const [inputState, setInputValue] = useState<InputState>({
     firstname: "",
     lastname: "",
     email: "",
@@ -88,23 +75,23 @@ export const RegisterForm = (props: Props) => {
           <ControlledInput
             {...inputOptions.firstname}
             value={inputState.firstname}
-            dispatch={dispatch}
+            setInputValue={setInputValue}
           />
           <ControlledInput
             {...inputOptions.lastname}
             value={inputState.lastname}
-            dispatch={dispatch}
+            setInputValue={setInputValue}
           />
         </HStack>
         <ControlledInput
           {...inputOptions.email}
           value={inputState.email}
-          dispatch={dispatch}
+          setInputValue={setInputValue}
         />
         <ControlledInput
           {...inputOptions.password}
           value={inputState.password}
-          dispatch={dispatch}
+          setInputValue={setInputValue}
         />
         <Button colorScheme="blue" onClick={handleSubmit}>
           Register
