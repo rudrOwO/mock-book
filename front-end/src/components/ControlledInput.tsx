@@ -1,33 +1,33 @@
-import { useState, useCallback, forwardRef, ChangeEvent } from "react";
+import { Dispatch, SetStateAction, useCallback, forwardRef, ChangeEvent } from "react";
 import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import { InputOptions } from "../models/InputOptions";
 
-interface Props {
-  showError: boolean;
-  label: string;
-  type: string;
+interface Props extends InputOptions {
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
 }
 
 export const ControlledInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
-  const { showError, label, type } = props;
-  const [input, setInput] = useState("");
+  const { value, setValue, label, type, name, isRequired } = props;
+  const showError = value === "" && isRequired;
 
   const handleInputChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setInput(e.target.value),
+    (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value),
     []
   );
 
   return (
-    <FormControl isInvalid={showError}>
-      <FormLabel htmlFor={label}>{label}</FormLabel>
+    <FormControl isRequired={isRequired}>
+      <FormLabel htmlFor={name}>{label}</FormLabel>
       <Input
-        name={label}
+        name={name}
         type={type}
         ref={ref}
-        id={label}
-        value={input}
+        id={name}
+        value={value}
         onChange={handleInputChange}
       />
-      {showError ? <FormErrorMessage>{`${label} is required`}</FormErrorMessage> : null}
+      {showError ? <FormErrorMessage>This field is required</FormErrorMessage> : null}
     </FormControl>
   );
 });

@@ -13,7 +13,7 @@ app.use(express.json());
 // Routers
 app.use("/register", register);
 
-// MongoDB connection
+// Initialize MongoDB and Server
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(_ => {

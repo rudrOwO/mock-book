@@ -1,6 +1,7 @@
-import { Button, Center, VStack } from "@chakra-ui/react";
-import { useState, useCallback, Dispatch, SetStateAction } from "react";
-import { useRefArray } from "../utils/useRefArray";
+import { Button, Center, HStack, VStack } from "@chakra-ui/react";
+import { useMemo, useState, useCallback, Dispatch, SetStateAction } from "react";
+import { useStateArray } from "../utils/hooks";
+import { InputOptions } from "../models/InputOptions";
 import { ControlledInput } from "./ControlledInput";
 
 interface Props {
@@ -8,43 +9,49 @@ interface Props {
 }
 
 export const RegisterForm = (props: Props) => {
-  const inputFieldCount = 3;
   const { setIsAuthenticated } = props;
-  const refArray = useRefArray(inputFieldCount);
-  const [errorArray, setErrorArray] = useState<boolean[]>(Array(inputFieldCount));
+  const stateArray = useStateArray(4);
+  const inputOptions = useMemo<InputOptions[]>(
+    () => [
+      new InputOptions("First Name", "text", "firstname"),
+      new InputOptions("Last Name", "text", "lastname", false),
+      new InputOptions("Enter Email", "text", "email"),
+      new InputOptions("Enter Password", "password", "password"),
+    ],
+    []
+  );
 
   const validateForm = useCallback(() => {
-    const newErrorArray = refArray.map(ref => !ref.current?.value);
-    setErrorArray(newErrorArray);
-    return !newErrorArray.some(isBlank => isBlank);
-  }, [errorArray]);
+    return true;
+  }, []);
 
-  const submitFormRequest = useCallback(() => {
-    const body = JSON.stringify({
-      username: refArray[0].current?.value,
-      email: refArray[1].current?.value,
-      password: refArray[2].current?.value,
-    });
-
+  const submitFormRequest = useCallback((body: any, route: string) => {
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body,
+      body: JSON.stringify(body),
     };
 
-    fetch(`${import.meta.env.VITE_SERVER_URL}/register`, options)
+    fetch(`${import.meta.env.VITE_SERVER_URL}${route}`, options)
       .then(response => response.json())
       .then(response => {
         setIsAuthenticated(true);
       })
       .catch(err => console.error(err));
-  }, [errorArray]);
+  }, []);
 
   const handleSubmit = useCallback(() => {
-    if (validateForm()) submitFormRequest();
-  }, [errorArray]);
+    // make body here
+    if (validateForm())
+      submitFormRequest(
+        {
+          yo: "yooo",
+        },
+        "/register"
+      );
+  }, []);
 
   return (
     <Center
@@ -55,24 +62,28 @@ export const RegisterForm = (props: Props) => {
       shadow="xl"
       borderRadius="lg"
     >
-      <VStack spacing={5}>
+      <VStack spacing={5} width={["90%", "80%", "75%"]}>
+        <HStack spacing={5} width="100%">
+          <ControlledInput
+            {...inputOptions[0]}
+            value={stateArray[0][0]}
+            setValue={stateArray[0][1]}
+          />
+          <ControlledInput
+            {...inputOptions[1]}
+            value={stateArray[1][0]}
+            setValue={stateArray[1][1]}
+          />
+        </HStack>
         <ControlledInput
-          type="text"
-          label="username"
-          showError={errorArray[0]}
-          ref={refArray[0]}
+          {...inputOptions[2]}
+          value={stateArray[2][0]}
+          setValue={stateArray[2][1]}
         />
         <ControlledInput
-          type="text"
-          label="email"
-          showError={errorArray[1]}
-          ref={refArray[1]}
-        />
-        <ControlledInput
-          type="password"
-          label="password"
-          showError={errorArray[2]}
-          ref={refArray[2]}
+          {...inputOptions[3]}
+          value={stateArray[3][0]}
+          setValue={stateArray[3][1]}
         />
         <Button colorScheme="blue" onClick={handleSubmit}>
           Register
