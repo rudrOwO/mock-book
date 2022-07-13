@@ -1,18 +1,23 @@
-import { Dispatch, SetStateAction, useCallback, forwardRef, ChangeEvent } from "react";
+import { Dispatch, useCallback, ChangeEvent } from "react";
 import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { InputOptions } from "../models/InputOptions";
+import { ReducerAction } from "./RegisterForm";
 
 interface Props extends InputOptions {
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  dispatch: Dispatch<ReducerAction>;
 }
 
-export const ControlledInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
-  const { value, setValue, label, type, name, isRequired } = props;
+export const ControlledInput = (props: Props) => {
+  const { value, dispatch, label, type, name, isRequired } = props;
   const showError = value === "" && isRequired;
 
   const handleInputChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value),
+    (e: ChangeEvent<HTMLInputElement>) =>
+      dispatch({
+        property: name,
+        value: e.target.value,
+      }),
     []
   );
 
@@ -22,7 +27,6 @@ export const ControlledInput = forwardRef<HTMLInputElement, Props>((props, ref) 
       <Input
         name={name}
         type={type}
-        ref={ref}
         id={name}
         value={value}
         onChange={handleInputChange}
@@ -30,4 +34,4 @@ export const ControlledInput = forwardRef<HTMLInputElement, Props>((props, ref) 
       {showError ? <FormErrorMessage>This field is required</FormErrorMessage> : null}
     </FormControl>
   );
-});
+};

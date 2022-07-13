@@ -1,6 +1,5 @@
 import { Button, Center, HStack, VStack } from "@chakra-ui/react";
-import { useMemo, useState, useCallback, Dispatch, SetStateAction } from "react";
-import { useStateArray } from "../utils/hooks";
+import { useMemo, useCallback, Dispatch, SetStateAction, useReducer } from "react";
 import { InputOptions } from "../models/InputOptions";
 import { ControlledInput } from "./ControlledInput";
 
@@ -8,16 +7,43 @@ interface Props {
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
 
+export interface ReducerState {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
+
+export interface ReducerAction {
+  property: string;
+  value: string;
+}
+
 export const RegisterForm = (props: Props) => {
   const { setIsAuthenticated } = props;
-  const stateArray = useStateArray(4);
-  const inputOptions = useMemo<InputOptions[]>(
-    () => [
-      new InputOptions("First Name", "text", "firstname"),
-      new InputOptions("Last Name", "text", "lastname", false),
-      new InputOptions("Enter Email", "text", "email"),
-      new InputOptions("Enter Password", "password", "password"),
-    ],
+
+  const reducer = useCallback(
+    (state: ReducerState, action: ReducerAction) => ({
+      ...state,
+      [action.property]: action.value,
+    }),
+    []
+  );
+
+  const [inputState, dispatch] = useReducer(reducer, {
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+
+  const inputOptions = useMemo(
+    () => ({
+      firstname: new InputOptions("First Name", "text", "firstname"),
+      lastname: new InputOptions("Last Name", "text", "lastname", false),
+      email: new InputOptions("Enter Email", "text", "email"),
+      password: new InputOptions("Enter Password", "password", "password"),
+    }),
     []
   );
 
@@ -44,14 +70,9 @@ export const RegisterForm = (props: Props) => {
 
   const handleSubmit = useCallback(() => {
     // make body here
-    if (validateForm())
-      submitFormRequest(
-        {
-          yo: "yooo",
-        },
-        "/register"
-      );
-  }, []);
+
+    if (validateForm()) submitFormRequest(inputState, "/register");
+  }, [inputState]);
 
   return (
     <Center
@@ -65,25 +86,25 @@ export const RegisterForm = (props: Props) => {
       <VStack spacing={5} width={["90%", "80%", "75%"]}>
         <HStack spacing={5} width="100%">
           <ControlledInput
-            {...inputOptions[0]}
-            value={stateArray[0][0]}
-            setValue={stateArray[0][1]}
+            {...inputOptions.firstname}
+            value={inputState.firstname}
+            dispatch={dispatch}
           />
           <ControlledInput
-            {...inputOptions[1]}
-            value={stateArray[1][0]}
-            setValue={stateArray[1][1]}
+            {...inputOptions.lastname}
+            value={inputState.lastname}
+            dispatch={dispatch}
           />
         </HStack>
         <ControlledInput
-          {...inputOptions[2]}
-          value={stateArray[2][0]}
-          setValue={stateArray[2][1]}
+          {...inputOptions.email}
+          value={inputState.email}
+          dispatch={dispatch}
         />
         <ControlledInput
-          {...inputOptions[3]}
-          value={stateArray[3][0]}
-          setValue={stateArray[3][1]}
+          {...inputOptions.password}
+          value={inputState.password}
+          dispatch={dispatch}
         />
         <Button colorScheme="blue" onClick={handleSubmit}>
           Register
