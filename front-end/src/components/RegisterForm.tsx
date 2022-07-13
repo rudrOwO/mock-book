@@ -1,4 +1,4 @@
-import { Button, Center, HStack, VStack } from "@chakra-ui/react";
+import { Button, Center, HStack, VStack, Toast } from "@chakra-ui/react";
 import { useMemo, useCallback, Dispatch, SetStateAction, useState } from "react";
 import { InputOptions } from "../models/InputOptions";
 import ControlledInput from "./ControlledInput";
@@ -16,6 +16,7 @@ export interface InputState {
 
 export const RegisterForm = (props: Props) => {
   const { setIsAuthenticated } = props;
+  const [submissionAttempted, setSubmissionAttempted] = useState(false);
 
   const [inputState, setInputValue] = useState<InputState>({
     firstname: "",
@@ -35,8 +36,18 @@ export const RegisterForm = (props: Props) => {
   );
 
   const validateForm = useCallback(() => {
-    return true;
-  }, []);
+    let noEmptyField = true;
+
+    for (const [key, value] of Object.entries(inputState))
+      if (
+        // @ts-ignore
+        inputOptions[key].isRequired
+      ) {
+        noEmptyField &&= !!value;
+      }
+
+    return noEmptyField;
+  }, [inputState]);
 
   const submitFormRequest = useCallback((body: any, route: string) => {
     const options = {
@@ -58,6 +69,8 @@ export const RegisterForm = (props: Props) => {
   const handleSubmit = useCallback(() => {
     // make body here
 
+    setSubmissionAttempted(true);
+
     if (validateForm()) submitFormRequest(inputState, "/register");
   }, [inputState]);
 
@@ -76,22 +89,26 @@ export const RegisterForm = (props: Props) => {
             {...inputOptions.firstname}
             value={inputState.firstname}
             setInputValue={setInputValue}
+            submissionAttempted={submissionAttempted}
           />
           <ControlledInput
             {...inputOptions.lastname}
             value={inputState.lastname}
             setInputValue={setInputValue}
+            submissionAttempted={submissionAttempted}
           />
         </HStack>
         <ControlledInput
           {...inputOptions.email}
           value={inputState.email}
           setInputValue={setInputValue}
+          submissionAttempted={submissionAttempted}
         />
         <ControlledInput
           {...inputOptions.password}
           value={inputState.password}
           setInputValue={setInputValue}
+          submissionAttempted={submissionAttempted}
         />
         <Button colorScheme="blue" onClick={handleSubmit}>
           Register

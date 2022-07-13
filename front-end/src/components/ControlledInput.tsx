@@ -6,11 +6,13 @@ import { InputState } from "./RegisterForm";
 interface Props extends InputOptions {
   value: string;
   setInputValue: Dispatch<SetStateAction<InputState>>;
+  submissionAttempted: boolean;
 }
 
 const ControlledInput = (props: Props) => {
-  const { value, setInputValue, label, type, name, isRequired } = props;
-  const showError = value === "" && isRequired;
+  const { value, setInputValue, label, type, name, isRequired, submissionAttempted } =
+    props;
+  const showError = value === "" && isRequired && submissionAttempted;
 
   const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(prevState => ({
@@ -20,7 +22,7 @@ const ControlledInput = (props: Props) => {
   }, []);
 
   return (
-    <FormControl isRequired={isRequired}>
+    <FormControl isInvalid={showError} isRequired={isRequired}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Input
         name={name}
@@ -29,7 +31,7 @@ const ControlledInput = (props: Props) => {
         value={value}
         onChange={handleInputChange}
       />
-      {showError ? <FormErrorMessage>This field is required</FormErrorMessage> : null}
+      <FormErrorMessage>This field is required</FormErrorMessage>
     </FormControl>
   );
 };
