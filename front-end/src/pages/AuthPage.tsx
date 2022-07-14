@@ -6,7 +6,7 @@ export const AuthPage = () => {
     <Tabs
       bg="white"
       padding="2%"
-      width={["90%", "80%", "60%"]}
+      width={["95%", "80%", "50%"]}
       height="auto"
       shadow="xl"
       borderRadius="lg"
