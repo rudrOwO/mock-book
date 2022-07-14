@@ -2,10 +2,7 @@ import { Button, Center, HStack, VStack, Toast } from "@chakra-ui/react";
 import { useMemo, useCallback, Dispatch, SetStateAction, useState } from "react";
 import { InputOptions } from "../models/InputOptions";
 import ControlledInput from "./ControlledInput";
-
-interface Props {
-  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
-}
+import { useAuthentication } from "../utils/hooks";
 
 export interface InputState {
   firstname: string;
@@ -14,9 +11,9 @@ export interface InputState {
   password: string;
 }
 
-export const RegisterForm = (props: Props) => {
-  const { setIsAuthenticated } = props;
+export const RegisterForm = () => {
   const [submissionAttempted, setSubmissionAttempted] = useState(false);
+  const { setIsAuthenticated } = useAuthentication();
 
   const [inputState, setInputValue] = useState<InputState>({
     firstname: "",
@@ -49,13 +46,15 @@ export const RegisterForm = (props: Props) => {
     return noEmptyField;
   }, [inputState]);
 
-  const submitFormRequest = useCallback((body: any, route: string) => {
+  const submitFormRequest = useCallback(() => {
+    const route = "/register";
+
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(inputState),
     };
 
     fetch(`${import.meta.env.VITE_SERVER_URL}${route}`, options)
@@ -64,14 +63,14 @@ export const RegisterForm = (props: Props) => {
         setIsAuthenticated(true);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [inputState]);
 
   const handleSubmit = useCallback(() => {
     // make body here
 
     setSubmissionAttempted(true);
 
-    if (validateForm()) submitFormRequest(inputState, "/register");
+    if (validateForm()) submitFormRequest();
   }, [inputState]);
 
   return (

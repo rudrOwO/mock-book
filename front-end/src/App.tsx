@@ -7,21 +7,16 @@ import {
   Flex,
   IconButton,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 import { RegisterForm } from "./components/RegisterForm";
+import { useAuthentication } from "./utils/hooks";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated } = useAuthentication();
 
   return (
     <ChakraProvider theme={theme}>
       <Center height="100vh" width="100vw" bg="gray.100">
-        {isAuthenticated ? (
-          <Text>Home Page</Text>
-        ) : (
-          <RegisterForm setIsAuthenticated={setIsAuthenticated} />
-        )}
+        {isAuthenticated ? <Text>Home Page</Text> : <RegisterForm />}
       </Center>
     </ChakraProvider>
   );
