@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { AuthForm } from "./components/AuthForm";
 import { useAuthentication } from "./utils/hooks";
+import { AuthPage } from "./pages/AuthPage";
+import { HomePage } from "./pages/HomePage";
 
 function App() {
   const { isAuthenticated } = useAuthentication();
@@ -16,7 +18,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Center height="100vh" width="100vw" bg="gray.100">
-        {isAuthenticated ? <Text>Home Page</Text> : <AuthForm type="login" />}
+        {isAuthenticated ? <HomePage /> : <AuthPage />}
       </Center>
     </ChakraProvider>
   );

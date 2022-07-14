@@ -82,14 +82,7 @@ export const AuthForm = (props: Props) => {
   }, [inputState]);
 
   return (
-    <Center
-      bg="white"
-      padding="2%"
-      width={["90%", "80%", "60%"]}
-      height="auto"
-      shadow="xl"
-      borderRadius="lg"
-    >
+    <Center width="100%">
       <VStack spacing={5} width={["90%", "80%", "75%"]}>
         {authType === "register" ? (
           <HStack spacing={5} width="100%">
