@@ -7,7 +7,7 @@ import {
   Flex,
   IconButton,
 } from "@chakra-ui/react";
-import { RegisterForm } from "./components/RegisterForm";
+import { AuthForm } from "./components/AuthForm";
 import { useAuthentication } from "./utils/hooks";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Center height="100vh" width="100vw" bg="gray.100">
-        {isAuthenticated ? <Text>Home Page</Text> : <RegisterForm />}
+        {isAuthenticated ? <Text>Home Page</Text> : <AuthForm type="login" />}
       </Center>
     </ChakraProvider>
   );

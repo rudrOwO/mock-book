@@ -4,14 +4,19 @@ import { InputOptions } from "../models/InputOptions";
 import ControlledInput from "./ControlledInput";
 import { useAuthentication } from "../utils/hooks";
 
-export interface InputState {
+interface Props {
+  type: "register" | "login";
+}
+
+interface InputState {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
 }
 
-export const RegisterForm = () => {
+export const AuthForm = (props: Props) => {
+  const { type: authType } = props;
   const [submissionAttempted, setSubmissionAttempted] = useState(false);
   const { setIsAuthenticated } = useAuthentication();
 
@@ -24,7 +29,12 @@ export const RegisterForm = () => {
 
   const inputOptions = useMemo(
     () => ({
-      firstname: new InputOptions("First Name", "text", "firstname"),
+      firstname: new InputOptions(
+        "First Name",
+        "text",
+        "firstname",
+        authType === "register"
+      ),
       lastname: new InputOptions("Last Name", "text", "lastname", false),
       email: new InputOptions("Enter Email", "text", "email"),
       password: new InputOptions("Enter Password", "password", "password"),
@@ -47,8 +57,6 @@ export const RegisterForm = () => {
   }, [inputState]);
 
   const submitFormRequest = useCallback(() => {
-    const route = "/register";
-
     const options = {
       method: "POST",
       headers: {
@@ -57,7 +65,7 @@ export const RegisterForm = () => {
       body: JSON.stringify(inputState),
     };
 
-    fetch(`${import.meta.env.VITE_SERVER_URL}${route}`, options)
+    fetch(`${import.meta.env.VITE_SERVER_URL}/${authType}`, options)
       .then(response => response.json())
       .then(response => {
         setIsAuthenticated(true);
@@ -83,20 +91,22 @@ export const RegisterForm = () => {
       borderRadius="lg"
     >
       <VStack spacing={5} width={["90%", "80%", "75%"]}>
-        <HStack spacing={5} width="100%">
-          <ControlledInput
-            {...inputOptions.firstname}
-            value={inputState.firstname}
-            setInputValue={setInputValue}
-            submissionAttempted={submissionAttempted}
-          />
-          <ControlledInput
-            {...inputOptions.lastname}
-            value={inputState.lastname}
-            setInputValue={setInputValue}
-            submissionAttempted={submissionAttempted}
-          />
-        </HStack>
+        {authType === "register" ? (
+          <HStack spacing={5} width="100%">
+            <ControlledInput
+              {...inputOptions.firstname}
+              value={inputState.firstname}
+              setInputValue={setInputValue}
+              submissionAttempted={submissionAttempted}
+            />
+            <ControlledInput
+              {...inputOptions.lastname}
+              value={inputState.lastname}
+              setInputValue={setInputValue}
+              submissionAttempted={submissionAttempted}
+            />
+          </HStack>
+        ) : null}
         <ControlledInput
           {...inputOptions.email}
           value={inputState.email}
@@ -110,7 +120,7 @@ export const RegisterForm = () => {
           submissionAttempted={submissionAttempted}
         />
         <Button colorScheme="blue" onClick={handleSubmit}>
-          Register
+          {authType === "register" ? "Register" : "Login"}
         </Button>
       </VStack>
     </Center>

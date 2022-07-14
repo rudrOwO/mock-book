@@ -1,11 +1,10 @@
 import { Dispatch, useCallback, ChangeEvent, memo, SetStateAction } from "react";
 import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { InputOptions } from "../models/InputOptions";
-import { InputState } from "./RegisterForm";
 
 interface Props extends InputOptions {
   value: string;
-  setInputValue: Dispatch<SetStateAction<InputState>>;
+  setInputValue: Dispatch<SetStateAction<any>>;
   submissionAttempted: boolean;
 }
 
@@ -15,7 +14,7 @@ const ControlledInput = (props: Props) => {
   const showError = value === "" && isRequired && submissionAttempted;
 
   const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(prevState => ({
+    setInputValue((prevState: any) => ({
       ...prevState,
       [name]: e.target.value,
     }));
