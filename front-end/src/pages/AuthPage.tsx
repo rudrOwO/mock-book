@@ -12,6 +12,7 @@ export const AuthPage = () => {
       borderRadius="lg"
       isFitted
       variant="enclosed"
+      defaultIndex={1}
     >
       <TabList mb="1em" bg="gray.100" borderRadius="lg">
         <Tab _selected={{ color: "white", bg: "blue.500" }} fontSize="xl">

@@ -1,5 +1,5 @@
-import { Button, Center, HStack, VStack, Toast } from "@chakra-ui/react";
-import { useMemo, useCallback, Dispatch, SetStateAction, useState } from "react";
+import { Button, Center, HStack, VStack, useToast } from "@chakra-ui/react";
+import { useMemo, useCallback, useState } from "react";
 import { InputOptions } from "../models/InputOptions";
 import ControlledInput from "./ControlledInput";
 import { useAuthentication } from "../utils/hooks";
@@ -19,6 +19,7 @@ export const AuthForm = (props: Props) => {
   const { type: authType } = props;
   const [submissionAttempted, setSubmissionAttempted] = useState(false);
   const { setIsAuthenticated } = useAuthentication();
+  const emailErrorToast = useToast();
 
   const [inputState, setInputValue] = useState<InputState>({
     firstname: "",
@@ -68,16 +69,23 @@ export const AuthForm = (props: Props) => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/${authType}`, options)
       .then(response => response.json())
       .then(response => {
-        setIsAuthenticated(true);
+        if (response.isAuthenticated) {
+          setIsAuthenticated(true);
+        } else if (response.duplicateEmail) {
+          emailErrorToast({
+            title: "Duplicate Email",
+            description: "An account with that email already exists",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
+        }
       })
       .catch(err => console.error(err));
   }, [inputState]);
 
   const handleSubmit = useCallback(() => {
-    // make body here
-
     setSubmissionAttempted(true);
-
     if (validateForm()) submitFormRequest();
   }, [inputState]);
 
