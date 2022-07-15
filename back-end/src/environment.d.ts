@@ -5,6 +5,7 @@ declare global {
     interface ProcessEnv {
       readonly PORT: string;
       readonly MONGODB_URL: string;
+      readonly JWT_HASH_KEY: string;
     }
   }
 }

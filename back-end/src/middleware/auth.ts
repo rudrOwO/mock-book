@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
+import { Jwt } from "jsonwebtoken";
 
-interface SecureRequest extends Request {
-  user?: any;
+export interface SecureRequest extends Request {
+  userEmail?: string;
 }
 
-const authenticate = (req: SecureRequest, res: Response, next: () => void) => {
-  req.user = {
-    username: "Mandy",
-  };
-  next();
+export const authorize = (req: SecureRequest, res: Response, next: () => void) => {
+  if (req.cookies.mockBookJWT) {
+    // verify JWT integrity here
+    next();
+  } else {
+    res.status(401).send("<h1>401: Access Denied</h1>");
+  }
 };
-
-export { SecureRequest };

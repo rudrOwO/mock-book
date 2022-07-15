@@ -2,8 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { register } from "./routes/register";
 import mongoose from "mongoose";
+import { register } from "./routes/register";
 
 const app = express();
 

@@ -1,29 +1,23 @@
-import { Router, Response } from "express";
-import { SecureRequest } from "../middleware/auth";
+import { Router, Response, Request } from "express";
 export const register = Router();
 import { User } from "../models/User";
+import { createJWT } from "../middleware/jwt";
 
-register.post("/", async (req: SecureRequest, res: Response) => {
+register.post("/", async (req: Request, res: Response) => {
   try {
     if (await User.exists({ email: req.body.email })) {
       throw "duplicateEmail";
     }
 
-    console.log(req.cookies);
-
     await User.create(req.body);
-
-    res.cookie("email", req.body.email, {
-      maxAge: 3600000 * 24 * 5,
-      httpOnly: true,
-    });
+    createJWT(req, res);
 
     res.status(200).json({
       isAuthenticated: true,
     });
   } catch (error) {
     if (error === "duplicateEmail") {
-      res.status(400).json({
+      res.status(200).json({
         errorMessage: "An account with the provided email already exists",
       });
     } else {
