@@ -3,7 +3,7 @@ import { MdLogout } from "react-icons/md";
 
 export const LogoutButton = () => {
   return (
-    <Tooltip marginY="5px" label=" Log Out" hasArrow shouldWrapChildren>
+    <Tooltip label=" Log Out" hasArrow shouldWrapChildren>
       <IconButton
         colorScheme="blue"
         aria-label="Log Out"
@@ -11,9 +11,9 @@ export const LogoutButton = () => {
         _hover={{
           background: "blue.400",
         }}
-        size="lg"
+        size="md"
       >
-        <MdLogout />
+        <MdLogout size="50%" />
       </IconButton>
     </Tooltip>
   );
