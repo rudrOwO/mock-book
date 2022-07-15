@@ -9,7 +9,14 @@ register.post("/", async (req: SecureRequest, res: Response) => {
       throw "duplicateEmail";
     }
 
+    console.log(req.cookies);
+
     await User.create(req.body);
+
+    res.cookie("email", req.body.email, {
+      maxAge: 3600000 * 24 * 5,
+      httpOnly: true,
+    });
 
     res.status(200).json({
       isAuthenticated: true,

@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { register } from "./routes/register";
 import mongoose from "mongoose";
 
@@ -8,6 +9,7 @@ const app = express();
 
 // Middleware
 app.use(cors({ origin: "*" }));
+app.use(cookieParser());
 app.use(express.json());
 
 // Routers
