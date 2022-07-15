@@ -6,7 +6,7 @@ import { User } from "../models/User";
 register.post("/", async (req: SecureRequest, res: Response) => {
   try {
     if (await User.exists({ email: req.body.email })) {
-      throw "Duplicate Email";
+      throw "duplicateEmail";
     }
 
     await User.create(req.body);
@@ -15,9 +15,13 @@ register.post("/", async (req: SecureRequest, res: Response) => {
       isAuthenticated: true,
     });
   } catch (error) {
-    if (error === "Duplicate Email") {
+    if (error === "duplicateEmail") {
       res.status(400).json({
-        duplicateEmail: true,
+        errorMessage: "An account with the provided email already exists",
+      });
+    } else {
+      res.status(500).json({
+        errorMessage: "Internal Server Error",
       });
     }
   }

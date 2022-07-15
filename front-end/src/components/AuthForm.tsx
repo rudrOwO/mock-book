@@ -19,7 +19,7 @@ export const AuthForm = (props: Props) => {
   const { type: authType } = props;
   const [submissionAttempted, setSubmissionAttempted] = useState(false);
   const { setIsAuthenticated } = useAuthentication();
-  const emailErrorToast = useToast();
+  const errorToast = useToast();
 
   const [inputState, setInputValue] = useState<InputState>({
     firstname: "",
@@ -71,10 +71,10 @@ export const AuthForm = (props: Props) => {
       .then(response => {
         if (response.isAuthenticated) {
           setIsAuthenticated(true);
-        } else if (response.duplicateEmail) {
-          emailErrorToast({
-            title: "Duplicate Email",
-            description: "An account with that email already exists",
+        } else {
+          errorToast({
+            title: "Error",
+            description: response.errorMessage,
             status: "error",
             duration: 4000,
             isClosable: true,
