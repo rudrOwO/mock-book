@@ -1,11 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 interface Props {
   children: ReactNode;

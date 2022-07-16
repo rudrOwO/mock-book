@@ -15,17 +15,13 @@ login.post("/", async (req: SecureRequest, res: Response) => {
         isAuthenticated: true,
       });
     } else {
-      throw "401";
-    }
-  } catch (error) {
-    if (error === "401") {
       res.status(401).json({
         errorMessage: "Invalid email / pasword",
       });
-    } else {
-      res.status(500).json({
-        errorMessage: "Internal Server Error",
-      });
     }
+  } catch (error) {
+    res.status(500).json({
+      errorMessage: "Internal Server Error",
+    });
   }
 });

@@ -7,7 +7,11 @@ export const register = Router();
 register.post("/", async (req: Request, res: Response) => {
   try {
     if (await User.exists({ email: req.body.email })) {
-      throw "duplicateEmail";
+      res.status(200).json({
+        errorMessage: "An account with the provided email already exists",
+      });
+
+      return;
     }
 
     await User.create(req.body);
@@ -17,14 +21,8 @@ register.post("/", async (req: Request, res: Response) => {
       isAuthenticated: true,
     });
   } catch (error) {
-    if (error === "duplicateEmail") {
-      res.status(200).json({
-        errorMessage: "An account with the provided email already exists",
-      });
-    } else {
-      res.status(500).json({
-        errorMessage: "Internal Server Error",
-      });
-    }
+    res.status(500).json({
+      errorMessage: "Internal Server Error",
+    });
   }
 });
