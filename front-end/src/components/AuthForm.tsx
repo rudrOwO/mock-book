@@ -3,7 +3,7 @@ import { useMemo, useCallback, useState } from "react";
 import { InputOptions } from "../models/InputOptions";
 import ControlledInput from "./ControlledInput";
 import { useAuthentication } from "../utils/hooks";
-import { User } from "../models/User";
+import { UserInterface } from "../models/User";
 
 interface Props {
   type: "register" | "login";
@@ -15,7 +15,7 @@ export const AuthForm = (props: Props) => {
   const { setIsAuthenticated } = useAuthentication();
   const errorToast = useToast();
 
-  const [inputState, setInputValue] = useState<User>({
+  const [inputState, setInputValue] = useState<UserInterface>({
     firstname: "",
     lastname: "",
     email: "",

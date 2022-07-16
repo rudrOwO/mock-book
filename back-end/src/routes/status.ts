@@ -28,7 +28,6 @@ status.post("/", async (req: SecureRequest, res: Response) => {
 status.get("/", async (req: SecureRequest, res: Response) => {
   try {
     const allStatus = await Status.find({});
-    console.log(allStatus);
     res.status(200).json(allStatus);
   } catch (error) {
     res.status(500).json({

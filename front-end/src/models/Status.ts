@@ -1,6 +1,6 @@
-export interface Status {
+export interface StatusInterface {
   userName: string;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }

@@ -1,4 +1,4 @@
-import { Tab, Tabs, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Tab, Tabs, ScaleFade, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
 import { AuthForm } from "../components/AuthForm";
 
 export const AuthPage = () => {
@@ -22,14 +22,16 @@ export const AuthPage = () => {
           Register
         </Tab>
       </TabList>
-      <TabPanels>
-        <TabPanel>
-          <AuthForm type="login" />
-        </TabPanel>
-        <TabPanel>
-          <AuthForm type="register" />
-        </TabPanel>
-      </TabPanels>
+      <ScaleFade in={true} initialScale={0.75}>
+        <TabPanels>
+          <TabPanel>
+            <AuthForm type="login" />
+          </TabPanel>
+          <TabPanel>
+            <AuthForm type="register" />
+          </TabPanel>
+        </TabPanels>
+      </ScaleFade>
     </Tabs>
   );
 };

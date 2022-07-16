@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const LoadingSpinner = ({ size }: Props) => (
-  <Center>
+  <Center height="90vh">
     <Spinner
       thickness="4px"
       speed="0.65s"

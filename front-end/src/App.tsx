@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChakraProvider, theme, Center } from "@chakra-ui/react";
+import { ChakraProvider, theme, Center, Flex } from "@chakra-ui/react";
 import { useAuthentication } from "./utils/hooks";
 import { AuthPage } from "./pages/AuthPage";
 import { HomePage } from "./pages/HomePage";
@@ -24,16 +24,24 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Navbar />
-      <Center height="100vh" width="100vw" bg="gray.100">
-        {isLoading ? (
-          <LoadingSpinner size="xl" />
-        ) : isAuthenticated ? (
-          <HomePage />
-        ) : (
-          <AuthPage />
-        )}
-      </Center>
+      <Flex
+        flexDir={"column"}
+        height="100vh"
+        width="100vw"
+        overflow="scroll"
+        bg="gray.100"
+      >
+        <Navbar />
+        <Center marginY={"3%"}>
+          {isLoading ? (
+            <LoadingSpinner size="xl" />
+          ) : isAuthenticated ? (
+            <HomePage />
+          ) : (
+            <AuthPage />
+          )}
+        </Center>
+      </Flex>
     </ChakraProvider>
   );
 }
