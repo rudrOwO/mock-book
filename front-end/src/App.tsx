@@ -26,7 +26,13 @@ function App() {
     <ChakraProvider theme={theme}>
       <Navbar />
       <Center height="100vh" width="100vw" bg="gray.100">
-        {isLoading ? <LoadingSpinner /> : isAuthenticated ? <HomePage /> : <AuthPage />}
+        {isLoading ? (
+          <LoadingSpinner size="xl" />
+        ) : isAuthenticated ? (
+          <HomePage />
+        ) : (
+          <AuthPage />
+        )}
       </Center>
     </ChakraProvider>
   );
