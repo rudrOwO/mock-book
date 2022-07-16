@@ -11,7 +11,6 @@ login.post("/", async (req: SecureRequest, res: Response) => {
       if (!req.cookies.mockBookJWT) {
         createJWT(req, res);
       }
-
       res.status(200).json({
         isAuthenticated: true,
       });

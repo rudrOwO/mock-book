@@ -67,7 +67,7 @@ export const AuthForm = (props: Props) => {
       body: JSON.stringify(inputState),
     };
 
-    //@ts-ignore
+    // @ts-ignore
     fetch(`${import.meta.env.VITE_SERVER_URL}/${authType}`, options)
       .then(response => response.json())
       .then(response => {
