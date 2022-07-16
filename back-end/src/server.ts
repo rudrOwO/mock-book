@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { register } from "./routes/register";
 import { login } from "./routes/login";
+import { status } from "./routes/status";
 import { authorize } from "./middleware/auth";
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 // Routers
 app.use("/register", register);
 app.use("/login", login);
+app.use("/status", authorize, status);
 
 // Default Home Page route
 app.post("/", authorize);
