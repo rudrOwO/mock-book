@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export interface SecureRequest extends Request {
-  email?: string;
-  password?: string;
+  userID?: string;
 }
 
 export const authorize = (req: SecureRequest, res: Response, next: () => void) => {

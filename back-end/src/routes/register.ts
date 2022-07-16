@@ -1,6 +1,6 @@
 import { Router, Response, Request } from "express";
 import { User } from "../models/User";
-import jwt from "jsonwebtoken";
+import { createJWT } from "../middleware/jwt";
 
 export const register = Router();
 
@@ -28,14 +28,3 @@ register.post("/", async (req: Request, res: Response) => {
     }
   }
 });
-
-function createJWT(req: Request, res: Response) {
-  const mockBookJWT = jwt.sign(req.body.email, process.env.JWT_HASH_KEY);
-
-  res.cookie("mockBookJWT", mockBookJWT, {
-    maxAge: 3600000 * 24 * 7, // Expires after 7 days
-    httpOnly: true, // XSS Protection
-    secure: true, // MITM Protection
-    sameSite: "strict", // CSRF Protection
-  });
-}

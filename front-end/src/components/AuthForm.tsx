@@ -60,12 +60,14 @@ export const AuthForm = (props: Props) => {
   const submitFormRequest = useCallback(() => {
     const options = {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(inputState),
     };
 
+    //@ts-ignore
     fetch(`${import.meta.env.VITE_SERVER_URL}/${authType}`, options)
       .then(response => response.json())
       .then(response => {
