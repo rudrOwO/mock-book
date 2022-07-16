@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_SERVER_URL}`, {
-      method: "POST",
+      method: "GET",
       credentials: "include",
     })
       .then(response => response.json())

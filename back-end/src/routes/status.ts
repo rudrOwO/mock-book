@@ -17,7 +17,19 @@ status.post("/", async (req: SecureRequest, res: Response) => {
     const docSize = await Status.estimatedDocumentCount();
     if (docSize > 10) removeOldest(Status);
 
-    res.status(200);
+    res.status(200).send();
+  } catch (error) {
+    res.status(500).json({
+      errorMessage: "Internal Server Error",
+    });
+  }
+});
+
+status.get("/", async (req: SecureRequest, res: Response) => {
+  try {
+    const allStatus = await Status.find({});
+    console.log(allStatus);
+    res.status(200).json(allStatus);
   } catch (error) {
     res.status(500).json({
       errorMessage: "Internal Server Error",

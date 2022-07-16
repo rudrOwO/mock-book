@@ -10,9 +10,6 @@ export const authorize = (req: SecureRequest, res: Response, next: () => void) =
     if (req.cookies.mockBookJWT) {
       const userEmail = jwt.verify(req.cookies.mockBookJWT, process.env.JWT_HASH_KEY);
       req.userEmail = userEmail as string;
-      res.status(200).json({
-        isAuthenticated: true,
-      });
       next();
     } else {
       res.status(200).json({
