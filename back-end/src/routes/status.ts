@@ -2,6 +2,7 @@ import { SecureRequest } from "../middleware/auth";
 import { Router, Response } from "express";
 import { Status } from "../models/Status";
 import { User } from "../models/User";
+import { removeOldest } from "../utils/removeOldest";
 
 export const status = Router();
 
@@ -12,6 +13,10 @@ status.post("/", async (req: SecureRequest, res: Response) => {
       userName: `${user.firstname} ${user.lastname}`,
       content: req.body.content,
     });
+
+    const docSize = await Status.estimatedDocumentCount();
+    if (docSize > 10) removeOldest(Status);
+
     res.status(200);
   } catch (error) {
     res.status(500).json({

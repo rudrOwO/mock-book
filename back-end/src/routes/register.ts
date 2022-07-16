@@ -1,6 +1,6 @@
 import { Router, Response, Request } from "express";
 import { User } from "../models/User";
-import { createJWT } from "../middleware/jwt";
+import { createJWT } from "../utils/jwt";
 
 export const register = Router();
 

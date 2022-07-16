@@ -1,7 +1,7 @@
 import { Router, Response } from "express";
 import { SecureRequest, authorize } from "../middleware/auth";
 import { User } from "../models/User";
-import { createJWT } from "../middleware/jwt";
+import { createJWT } from "../utils/jwt";
 
 export const login = Router();
 

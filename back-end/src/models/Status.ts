@@ -1,9 +1,11 @@
 import { Schema, model } from "mongoose";
 import timeStamps from "mongoose-timestamp";
 
-interface StatusInterface {
+export interface StatusInterface {
   userName: string;
   content: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const statusSchema = new Schema<StatusInterface>({
