@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import timeStamps from "mongoose-timestamp";
 
 interface StatusInterface {
   userName: string;
@@ -17,4 +18,5 @@ const statusSchema = new Schema<StatusInterface>({
   },
 });
 
+statusSchema.plugin(timeStamps);
 export const Status = model("Status", statusSchema);
