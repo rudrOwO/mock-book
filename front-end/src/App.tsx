@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { ChakraProvider, theme, Center, Spinner } from "@chakra-ui/react";
+import { ChakraProvider, theme, Center } from "@chakra-ui/react";
 import { useAuthentication } from "./utils/hooks";
 import { AuthPage } from "./pages/AuthPage";
 import { HomePage } from "./pages/HomePage";
 import { Navbar } from "./components/Navbar";
+import { LoadingSpinner } from "./components/LoadingSpinner";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,19 +26,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <Navbar />
       <Center height="100vh" width="100vw" bg="gray.100">
-        {isLoading ? (
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-        ) : isAuthenticated ? (
-          <HomePage />
-        ) : (
-          <AuthPage />
-        )}
+        {isLoading ? <LoadingSpinner /> : isAuthenticated ? <HomePage /> : <AuthPage />}
       </Center>
     </ChakraProvider>
   );
