@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
@@ -7,6 +7,8 @@ import { register } from "./routes/register";
 import { login } from "./routes/login";
 import { status } from "./routes/status";
 import { authorize } from "./middleware/auth";
+import { home } from "./routes/home";
+import { logout } from "./routes/logout";
 
 const app = express();
 
@@ -22,12 +24,9 @@ app.use("/register", register);
 app.use("/login", login);
 app.use("/status", authorize, status);
 
-// Default Home Page route
-app.get("/", authorize, (req: Request, res: Response) => {
-  res.status(200).json({
-    isAuthenticated: true,
-  });
-});
+// Extra
+app.use("/", authorize, home);
+app.use("/logout", logout);
 
 // Initialize MongoDB and Server
 mongoose

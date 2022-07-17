@@ -8,6 +8,7 @@ import { Status } from "../components/Status";
 import { Navbar } from "../components/Navbar";
 
 export const HomePage = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [statusList, setStatusList] = useState<[StatusInterface] | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -18,6 +19,7 @@ export const HomePage = () => {
     })
       .then(response => response.json())
       .then(response => {
+        setIsLoading(false);
         setStatusList(response);
       });
   }, [isOpen]);
@@ -32,15 +34,19 @@ export const HomePage = () => {
       bg="gray.100"
     >
       <Navbar />
-      <VStack marginTop="2%" spacing="8" width={["95%", "80%", "50%"]}>
-        {statusList?.map((status: StatusInterface) => (
-          <Status
-            key={status.createdAt}
-            userName={status.userName}
-            content={status.content}
-          />
-        ))}
-      </VStack>
+      {isLoading ? (
+        <LoadingSpinner size="xl" />
+      ) : (
+        <VStack marginTop="30px" spacing="8" width={["95%", "80%", "50%"]}>
+          {statusList?.map((status: StatusInterface) => (
+            <Status
+              key={status.createdAt}
+              userName={status.userName}
+              content={status.content}
+            />
+          ))}
+        </VStack>
+      )}
     </Flex>
   );
 };

@@ -8,8 +8,10 @@ export interface SecureRequest extends Request {
 export const authorize = (req: SecureRequest, res: Response, next: () => void) => {
   try {
     if (req.cookies.mockBookJWT) {
-      const userEmail = jwt.verify(req.cookies.mockBookJWT, process.env.JWT_HASH_KEY);
-      req.userEmail = userEmail as string;
+      req.userEmail = jwt.verify(
+        req.cookies.mockBookJWT,
+        process.env.JWT_HASH_KEY
+      ) as string;
       next();
     } else {
       res.status(200).json({

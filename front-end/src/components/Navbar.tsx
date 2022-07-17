@@ -1,6 +1,6 @@
 import { chakra, Flex } from "@chakra-ui/react";
 import { useAuthentication } from "../utils/hooks";
-import { LogoutButton } from "./Logout";
+import { LogoutButton } from "./LogoutButton";
 
 export const Navbar = () => {
   const { isAuthenticated } = useAuthentication();

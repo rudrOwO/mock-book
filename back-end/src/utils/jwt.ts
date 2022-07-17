@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import jwt from "jsonwebtoken";
 
-export function createJWT(req: Request, res: Response) {
+export const createJWT = (req: Request, res: Response) => {
   const mockBookJWT = jwt.sign(req.body.email, process.env.JWT_HASH_KEY);
 
   res.cookie("mockBookJWT", mockBookJWT, {
@@ -10,4 +10,13 @@ export function createJWT(req: Request, res: Response) {
     secure: true, // MITM Protection
     sameSite: "strict", // CSRF Protection
   });
-}
+};
+
+export const removeJWT = (res: Response) => {
+  res.cookie("mockBookJWT", "", {
+    maxAge: 0, // Token is Deleted
+    httpOnly: true, // XSS Protection
+    secure: true, // MITM Protection
+    sameSite: "strict", // CSRF Protection
+  });
+};

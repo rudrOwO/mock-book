@@ -10,7 +10,7 @@ function App() {
   const { isAuthenticated, setIsAuthenticated } = useAuthentication();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}`, {
+    fetch(import.meta.env.VITE_SERVER_URL, {
       method: "GET",
       credentials: "include",
     })
