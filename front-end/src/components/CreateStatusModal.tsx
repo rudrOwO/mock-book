@@ -1,5 +1,5 @@
 import {
-  Input,
+  chakra,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -23,7 +23,7 @@ export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
   const [submissionAttempted, setSubmissionAttempted] = useState(false);
   const showError = content === "" && submissionAttempted;
 
-  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   }, []);
 
@@ -53,7 +53,16 @@ export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
 
         <ModalBody>
           <FormControl isInvalid={showError}>
-            <Input type="text" value={content} onChange={handleInputChange} autoFocus />
+            <chakra.textarea
+              rows={5}
+              borderRadius="lg"
+              fontSize="lg"
+              padding="10px"
+              width="100%"
+              value={content}
+              onChange={handleInputChange}
+              autoFocus
+            />
             <FormErrorMessage>This field is required</FormErrorMessage>
           </FormControl>
         </ModalBody>
