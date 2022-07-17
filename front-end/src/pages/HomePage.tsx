@@ -22,31 +22,35 @@ export const HomePage = () => {
         setIsLoading(false);
         setStatusList(response);
       });
-  }, [isOpen]);
+  }, []);
 
   return (
-    <Flex
-      flexDir="column"
-      alignItems="center"
-      height="100vh"
-      width="100vw"
-      overflow="scroll"
-      bg="gray.100"
-    >
-      <Navbar />
-      {isLoading ? (
-        <LoadingSpinner size="xl" />
-      ) : (
-        <VStack marginY="30px" spacing="8" width={["95%", "80%", "50%"]}>
-          {statusList?.map((status: StatusInterface) => (
-            <Status
-              key={status.createdAt}
-              userName={status.userName}
-              content={status.content}
-            />
-          ))}
-        </VStack>
-      )}
-    </Flex>
+    <>
+      <Flex
+        flexDir="column"
+        alignItems="center"
+        height="100vh"
+        width="100vw"
+        overflow="scroll"
+        bg="gray.100"
+      >
+        <Navbar />
+        <CreateStatusButton onOpen={onOpen} />
+        {isLoading ? (
+          <LoadingSpinner size="xl" />
+        ) : (
+          <VStack marginY="30px" spacing="8" width={["95%", "80%", "50%"]}>
+            {statusList?.map((status: StatusInterface) => (
+              <Status
+                key={status.createdAt}
+                userName={status.userName}
+                content={status.content}
+              />
+            ))}
+          </VStack>
+        )}
+      </Flex>
+      <CreateStatusModal isOpen={isOpen} onClose={onClose} />
+    </>
   );
 };
