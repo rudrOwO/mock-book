@@ -19,6 +19,7 @@ status.post("/", async (req: SecureRequest, res: Response) => {
 
     res.status(200).send();
   } catch (error) {
+    console.log(req.body);
     res.status(500).json({
       errorMessage: "Internal Server Error",
     });

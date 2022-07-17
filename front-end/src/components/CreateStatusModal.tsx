@@ -1,5 +1,5 @@
 import {
-  useDisclosure,
+  Input,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -8,7 +8,10 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react";
+import { ChangeEvent, useCallback, useState } from "react";
 
 interface Props {
   isOpen: boolean;
@@ -16,24 +19,52 @@ interface Props {
 }
 
 export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
+  const [content, setContent] = useState("");
+  const [submissionAttempted, setSubmissionAttempted] = useState(false);
+  const showError = content === "" && submissionAttempted;
+
+  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+  }, []);
+
+  const handlePostSubmission = useCallback(() => {
+    setSubmissionAttempted(true);
+
+    if (content) {
+      fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          content: content,
+        }),
+      }).then(_ => onClose());
+    }
+  }, [content]);
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size="xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Post Status</ModalHeader>
+        <ModalHeader>Create Status</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab commodi quis atque
-          odio, eos neque facere aspernatur voluptates perspiciatis non, minus obcaecati
-          error. Nostrum nesciunt impedit odit tenetur, laboriosam minus.
+          <FormControl isInvalid={showError}>
+            <Input type="text" value={content} onChange={handleInputChange} autoFocus />
+            <FormErrorMessage>This field is required</FormErrorMessage>
+          </FormControl>
         </ModalBody>
 
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
+        <ModalFooter justifyContent="space-between">
+          <Button colorScheme="red" onClick={onClose}>
+            Cancel
           </Button>
-          <Button variant="ghost">Secondary Action</Button>
+          <Button colorScheme="blue" onClick={handlePostSubmission}>
+            Post
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
