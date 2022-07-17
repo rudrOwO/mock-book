@@ -13,16 +13,18 @@ export const HomePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
-      method: "GET",
-      credentials: "include",
-    })
-      .then(response => response.json())
-      .then(response => {
-        setIsLoading(false);
-        setStatusList(response);
-      });
-  }, []);
+    if (!isOpen) {
+      fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then(response => response.json())
+        .then(response => {
+          setIsLoading(false);
+          setStatusList(response);
+        });
+    }
+  }, [isOpen]);
 
   return (
     <Flex

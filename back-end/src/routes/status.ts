@@ -28,7 +28,7 @@ status.post("/", async (req: SecureRequest, res: Response) => {
 
 status.get("/", async (req: SecureRequest, res: Response) => {
   try {
-    const allStatus = await Status.find({});
+    const allStatus = await Status.find({}).sort({ createdAt: "descending" });
     res.status(200).json(allStatus);
   } catch (error) {
     res.status(500).json({
