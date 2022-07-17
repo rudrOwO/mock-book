@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChakraProvider, theme, Center, Flex } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import { useAuthentication } from "./utils/hooks";
 import { AuthPage } from "./pages/AuthPage";
 import { HomePage } from "./pages/HomePage";

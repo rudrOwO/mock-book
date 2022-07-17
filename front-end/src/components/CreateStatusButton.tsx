@@ -13,7 +13,7 @@ export const CreateStatusButton = ({ onOpen }: Props) => (
     mr="10vw"
     mb="5vh"
     colorScheme="blue"
-    borderRadius={"full"}
+    borderRadius="xl"
     size="lg"
     onClick={onOpen}
   >

@@ -11,12 +11,3 @@ export const createJWT = (req: Request, res: Response) => {
     sameSite: "strict", // CSRF Protection
   });
 };
-
-export const removeJWT = (res: Response) => {
-  res.cookie("mockBookJWT", "", {
-    maxAge: 0, // Token is Deleted
-    httpOnly: true, // XSS Protection
-    secure: true, // MITM Protection
-    sameSite: "strict", // CSRF Protection
-  });
-};
