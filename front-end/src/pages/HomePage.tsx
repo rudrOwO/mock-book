@@ -37,7 +37,7 @@ export const HomePage = () => {
       {isLoading ? (
         <LoadingSpinner size="xl" />
       ) : (
-        <VStack marginTop="30px" spacing="8" width={["95%", "80%", "50%"]}>
+        <VStack marginY="30px" spacing="8" width={["95%", "80%", "50%"]}>
           {statusList?.map((status: StatusInterface) => (
             <Status
               key={status.createdAt}
