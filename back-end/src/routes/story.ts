@@ -15,6 +15,9 @@ story.post(
   async (req: SecureRequest, res: Response) => {
     try {
       const createdDoc = await Story.create({});
+      const imageName = String(createdDoc._id);
+
+      await minioClient.putObject("story", imageName, req.file.buffer);
 
       const docSize = await Story.estimatedDocumentCount();
       // if (docSize > 10)
@@ -22,7 +25,6 @@ story.post(
 
       res.status(200).send();
     } catch (error) {
-      console.log(req.body);
       res.status(500).json({
         errorMessage: "Internal Server Error",
       });

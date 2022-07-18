@@ -49,21 +49,3 @@ export const minioClient = new Minio.Client({
   port: Number(process.env.MINIO_PORT),
   useSSL: false,
 });
-
-// minioClient.makeBucket("story", "", err => {
-//   if (err) console.error("Errror while creatting bucket", err);
-//   console.log("Status bucket created");
-// });
-
-// minioClient.fPutObject(
-//   "story",
-//   "test5",
-//   "../front-end/assets/favicon.svg",
-//   {
-//     "Content-Type": "image/svg+xml",
-//   },
-//   (err, etag) => {
-//     if (err) console.error(err);
-//     console.log("Etag", etag);
-//   }
-// );

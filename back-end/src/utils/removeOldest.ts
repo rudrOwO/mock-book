@@ -5,5 +5,7 @@ export const removeOldest = async (model: any) => {
   const query = await model.find({}).sort({ createdAt: "ascending" });
   await model.deleteOne({ createdAt: query[0].createdAt });
 
-  // console.log(model === Story);
+  if (model === Story) {
+    await minioClient.removeObject("story", String(query[0]._id));
+  }
 };
