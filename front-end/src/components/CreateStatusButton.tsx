@@ -18,10 +18,8 @@ export const CreateStatusButton = ({ onOpen }: Props) => (
     onClick={onOpen}
   >
     <BsPlusLg fontSize="25px" />
-    {window.innerWidth > 900 ? (
-      <Text fontSize="xl" ml="20px" mt="5px">
-        Post Status
-      </Text>
-    ) : null}
+    <Text display={["none", "none", "inline"]} fontSize="xl" ml="20px" mt="5px">
+      Post Status
+    </Text>
   </Button>
 );
