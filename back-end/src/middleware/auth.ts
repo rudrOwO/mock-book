@@ -14,7 +14,7 @@ export const authorize = (req: SecureRequest, res: Response, next: () => void) =
       ) as string;
       next();
     } else {
-      res.status(200).json({
+      res.status(401).json({
         isAuthenticated: false,
       });
     }

@@ -1,9 +1,18 @@
 import { Image } from "@chakra-ui/react";
+import { memo } from "react";
 
 interface Props {
   src: string;
 }
 
-export const Story = ({ src }: Props) => (
-  <Image height="15vh" fit="contain" align="center" borderRadius="lg" src={src} />
+const Story = ({ src }: Props) => (
+  <Image
+    height="20vh"
+    fit="contain"
+    align="center"
+    borderRadius="lg"
+    src={`${import.meta.env.VITE_SERVER_URL}/story/${src}`}
+  />
 );
+
+export default memo(Story);

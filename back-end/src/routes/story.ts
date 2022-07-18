@@ -13,8 +13,8 @@ story.post(
   "/",
   multerUpload.single("story"),
   async (req: SecureRequest, res: Response) => {
+    const createdDoc = await Story.create({});
     try {
-      const createdDoc = await Story.create({});
       const imageName = String(createdDoc._id);
 
       await minioClient.putObject("story", imageName, req.file.buffer);
@@ -24,6 +24,8 @@ story.post(
 
       res.status(200).send();
     } catch (error) {
+      await Story.deleteOne({ _id: createdDoc._id });
+
       res.status(500).json({
         errorMessage: "Internal Server Error",
       });
@@ -34,7 +36,7 @@ story.post(
 story.get("/", async (req: SecureRequest, res: Response) => {
   try {
     const storyDocs = await Story.find({}).sort({ createdAt: "descending" });
-    const srcArray = storyDocs.map(doc => ({ src: String(doc._id) }));
+    const srcArray = storyDocs.map(doc => String(doc._id));
 
     res.status(200).json(srcArray);
   } catch (error) {
@@ -45,10 +47,10 @@ story.get("/", async (req: SecureRequest, res: Response) => {
 });
 
 story.get("/:src", async (req: SecureRequest, res: Response) => {
-  console.log(req.params.src);
-  const objName = "test1";
+  const objName = req.params.src;
 
   try {
+    // Possible Improvement here => Use chunks of stream
     const imgBlob = await minioClient.getObject("story", objName);
     const buffer = await arrayBuffer(imgBlob);
     const array = new Uint8Array(buffer);
