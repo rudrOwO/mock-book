@@ -20,8 +20,7 @@ story.post(
       await minioClient.putObject("story", imageName, req.file.buffer);
 
       const docSize = await Story.estimatedDocumentCount();
-      // if (docSize > 10)
-      await removeOldest(Story);
+      if (docSize > 10) await removeOldest(Story);
 
       res.status(200).send();
     } catch (error) {
