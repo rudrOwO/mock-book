@@ -15,7 +15,7 @@ status.post("/", async (req: SecureRequest, res: Response) => {
     });
 
     const docSize = await Status.estimatedDocumentCount();
-    if (docSize > 10) removeOldest(Status);
+    if (docSize > 10) await removeOldest(Status);
 
     res.status(200).send();
   } catch (error) {

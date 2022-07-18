@@ -7,6 +7,7 @@ import * as Minio from "minio";
 import { register } from "./routes/register";
 import { login } from "./routes/login";
 import { status } from "./routes/status";
+import { story } from "./routes/story";
 import { authorize } from "./middleware/auth";
 import { home } from "./routes/home";
 import { logout } from "./routes/logout";
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use("/register", register);
 app.use("/login", login);
 app.use("/status", authorize, status);
+app.use("/story", authorize, story);
 
 // Extra
 app.use("/", authorize, home);
@@ -48,22 +50,20 @@ export const minioClient = new Minio.Client({
   useSSL: false,
 });
 
-minioClient.makeBucket("status", "", err => {
-  if (err) console.error("Errror while creatting bucket", err);
-  console.log("Status bucket created");
-});
+// minioClient.makeBucket("story", "", err => {
+//   if (err) console.error("Errror while creatting bucket", err);
+//   console.log("Status bucket created");
+// });
 
-minioClient.fPutObject(
-  "status",
-  "test",
-  "../front-end/assets/favicon.svg",
-  {
-    "Content-Type": "image/svg+xml",
-  },
-  (err, etag) => {
-    if (err) console.error(err);
-    console.log("Etag", etag);
-  }
-);
-
-//
+// minioClient.fPutObject(
+//   "story",
+//   "test5",
+//   "../front-end/assets/favicon.svg",
+//   {
+//     "Content-Type": "image/svg+xml",
+//   },
+//   (err, etag) => {
+//     if (err) console.error(err);
+//     console.log("Etag", etag);
+//   }
+// );
