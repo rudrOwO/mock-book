@@ -29,3 +29,16 @@ story.post(
     }
   }
 );
+
+story.get("/", async (req: SecureRequest, res: Response) => {
+  try {
+    const storyDocs = await Story.find({}).sort({ createdAt: "descending" });
+    const srcArray = storyDocs.map(doc => ({ src: String(doc._id) }));
+
+    res.status(200).json(srcArray);
+  } catch (error) {
+    res.status(500).json({
+      errorMessage: "Internal Server Error",
+    });
+  }
+});
