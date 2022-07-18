@@ -9,10 +9,8 @@ export const CreateStatusButton = ({ onOpen }: Props) => (
   <Button
     position="absolute"
     height="60px"
-    ml="85vw"
-    mt="90vh"
-    mr="10vw"
-    mb="5vh"
+    left={["75%", "75%", "80%"]}
+    top="90vh"
     colorScheme="blue"
     borderRadius="xl"
     size="lg"

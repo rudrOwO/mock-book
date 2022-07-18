@@ -6,10 +6,10 @@ const Status = ({ userName, content }: StatusInterface) => (
   <Flex
     bg="white"
     padding="2%"
-    width="100%"
     shadow="xl"
     borderRadius="lg"
     flexDir="column"
+    width={["95%", "80%", "50%"]}
   >
     <ScaleFade in={true} initialScale={0.75}>
       <Box>

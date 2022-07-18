@@ -6,11 +6,7 @@ import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import Status from "../components/Status";
 
-interface Props {
-  flex: number;
-}
-
-export const StatusSection = ({ flex }: Props) => {
+export const StatusSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [statusList, setStatusList] = useState<[StatusInterface] | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,7 +33,7 @@ export const StatusSection = ({ flex }: Props) => {
       {isLoading ? (
         <LoadingSpinner size="xl" />
       ) : (
-        <VStack flex={flex} marginY="30px" spacing="8" width={["95%", "80%", "50%"]}>
+        <VStack overflow={"scroll"} flex={7} width="100vw" spacing="8">
           {statusList?.map((status: StatusInterface) => (
             <Status
               key={status.createdAt}
