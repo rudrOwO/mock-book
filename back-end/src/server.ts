@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
+import * as Minio from "minio";
 import { register } from "./routes/register";
 import { login } from "./routes/login";
 import { status } from "./routes/status";
@@ -28,7 +29,7 @@ app.use("/status", authorize, status);
 app.use("/", authorize, home);
 app.use("/logout", logout);
 
-// Initialize MongoDB and Server
+// Connect to MongoDB and then spin up Server
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(_ => {
@@ -37,3 +38,32 @@ mongoose
     );
   })
   .catch(err => console.log(err));
+
+// Initialize Minio
+export const minioClient = new Minio.Client({
+  accessKey: process.env.MINIO_ACCESS_KEY,
+  secretKey: process.env.MINIO_SECRET_KEY,
+  endPoint: process.env.HOST,
+  port: Number(process.env.MINIO_PORT),
+  useSSL: false,
+});
+
+minioClient.makeBucket("status", "", err => {
+  if (err) console.error("Errror while creatting bucket", err);
+  console.log("Status bucket created");
+});
+
+minioClient.fPutObject(
+  "status",
+  "test",
+  "../front-end/assets/favicon.svg",
+  {
+    "Content-Type": "image/svg+xml",
+  },
+  (err, etag) => {
+    if (err) console.error(err);
+    console.log("Etag", etag);
+  }
+);
+
+//
