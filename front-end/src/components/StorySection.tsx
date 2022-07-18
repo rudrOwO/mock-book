@@ -5,17 +5,12 @@ interface Props {
   flex: number;
 }
 
+// import.meta.env.VITE_SERVER_URL
+
 export const StorySection = ({ flex }: Props) => {
   return (
-    <Center flex={flex}>
-      <form
-        action={`${import.meta.env.VITE_SERVER_URL}/story`}
-        method="post"
-        encType="multipart/form-data"
-      >
-        <input type="file" name="story" />
-        <button type="submit">upload</button>
-      </form>
+    <Center marginTop={"10px"} flex={flex}>
+      <input type="file" name="story" />
     </Center>
   );
 };

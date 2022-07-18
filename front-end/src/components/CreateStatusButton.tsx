@@ -1,4 +1,4 @@
-import { BsPlusLg } from "react-icons/bs";
+import { MdPostAdd } from "react-icons/md";
 import { Button, Text } from "@chakra-ui/react";
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 export const CreateStatusButton = ({ onOpen }: Props) => (
   <Button
     position="absolute"
+    height="60px"
     ml="85vw"
     mt="90vh"
     mr="10vw"
@@ -17,8 +18,8 @@ export const CreateStatusButton = ({ onOpen }: Props) => (
     size="lg"
     onClick={onOpen}
   >
-    <BsPlusLg fontSize="25px" />
-    <Text display={["none", "none", "inline"]} fontSize="xl" ml="20px" mt="5px">
+    <MdPostAdd fontSize="30px" />
+    <Text display={["none", "none", "inline"]} fontSize="xl" ml="10px" mt="5px">
       Post Status
     </Text>
   </Button>

@@ -1,7 +1,8 @@
 import { Flex, Text, Box, ScaleFade } from "@chakra-ui/react";
 import { StatusInterface } from "../models/Status";
+import { memo } from "react";
 
-export const Status = ({ userName, content }: StatusInterface) => (
+const Status = ({ userName, content }: StatusInterface) => (
   <Flex
     bg="white"
     padding="2%"
@@ -28,3 +29,5 @@ export const Status = ({ userName, content }: StatusInterface) => (
     </ScaleFade>
   </Flex>
 );
+
+export default memo(Status);

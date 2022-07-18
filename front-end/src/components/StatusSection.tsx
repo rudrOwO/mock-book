@@ -4,7 +4,7 @@ import { CreateStatusButton } from "../components/CreateStatusButton";
 import { CreateStatusModal } from "../components/CreateStatusModal";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../components/LoadingSpinner";
-import { Status } from "../components/Status";
+import Status from "../components/Status";
 
 interface Props {
   flex: number;
@@ -17,15 +17,17 @@ export const StatusSection = ({ flex }: Props) => {
 
   useEffect(() => {
     if (!isOpen) {
-      fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
-        method: "GET",
-        credentials: "include",
-      })
-        .then(response => response.json())
-        .then(response => {
-          setIsLoading(false);
-          setStatusList(response);
-        });
+      setTimeout(() => {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
+          method: "GET",
+          credentials: "include",
+        })
+          .then(response => response.json())
+          .then(response => {
+            setIsLoading(false);
+            setStatusList(response);
+          });
+      }, 100);
     }
   }, [isOpen]);
 

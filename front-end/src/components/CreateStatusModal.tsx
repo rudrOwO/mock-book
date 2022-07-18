@@ -29,6 +29,7 @@ export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
 
   const handlePostSubmission = useCallback(() => {
     setSubmissionAttempted(true);
+    onClose();
 
     if (content) {
       fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
@@ -40,7 +41,7 @@ export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
         body: JSON.stringify({
           content: content,
         }),
-      }).then(_ => onClose());
+      });
     }
   }, [content]);
 
