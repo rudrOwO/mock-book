@@ -1,21 +1,15 @@
 import { Flex, chakra } from "@chakra-ui/react";
 import { HStack } from "@chakra-ui/react";
-import { useState, useRef, useCallback, useEffect, ChangeEvent } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { UploadStoryButton } from "./UploadStoryButton";
+import { useScroll } from "../utils/hooks";
 import Story from "./Story";
 
 export const StorySection = () => {
   const [srcList, setSrcList] = useState([]);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const formRef = useRef<HTMLFormElement | null>(null);
-
-  // const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-  //   if (e.currentTarget.value) {
-  //     handleFileUpload();
-  //   } else {
-  //     console.log("files NOT here");
-  //   }
-  // }, []);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [stackRef, scrollTo] = useScroll<HTMLDivElement>();
 
   const fetchImageSources = useCallback(() => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/story`, {
@@ -23,7 +17,10 @@ export const StorySection = () => {
       credentials: "include",
     })
       .then(response => response.json())
-      .then(response => setSrcList(response));
+      .then(response => {
+        setSrcList(response);
+        scrollTo({ left: 0, behavior: "smooth" });
+      });
   }, []);
 
   const handleFileUpload = useCallback(() => {
@@ -44,11 +41,10 @@ export const StorySection = () => {
   useEffect(fetchImageSources, []);
 
   return (
-    <Flex marginY="25px" justifyContent={"space-evenly"} alignItems={"center"}>
+    <Flex marginY="20px" justifyContent="space-evenly" alignItems="center">
       <chakra.form
         display="none"
         ref={formRef}
-        action={`${import.meta.env.VITE_SERVER_URL}/story`}
         method="post"
         encType="multipart/form-data"
       >
@@ -60,8 +56,9 @@ export const StorySection = () => {
         />
       </chakra.form>
       <HStack
+        ref={stackRef}
         borderRadius="xl"
-        background="gray.200"
+        background="gray.100"
         overflowX="scroll"
         spacing={3}
         width={["95%", "80%", "80%"]}

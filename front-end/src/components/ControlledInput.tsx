@@ -1,16 +1,36 @@
-import { Dispatch, useCallback, ChangeEvent, memo, SetStateAction } from "react";
-import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import {
+  Dispatch,
+  useCallback,
+  ChangeEvent,
+  memo,
+  SetStateAction,
+} from "react";
+import {
+  Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import { InputOptions } from "../models/InputOptions";
 
 interface Props extends InputOptions {
   value: string;
+  autoFocus?: boolean;
   setInputValue: Dispatch<SetStateAction<any>>;
   submissionAttempted: boolean;
 }
 
 const ControlledInput = (props: Props) => {
-  const { value, setInputValue, label, type, name, isRequired, submissionAttempted } =
-    props;
+  const {
+    value,
+    setInputValue,
+    label,
+    type,
+    name,
+    isRequired,
+    submissionAttempted,
+    autoFocus,
+  } = props;
   const showError = value === "" && isRequired && submissionAttempted;
 
   const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +49,7 @@ const ControlledInput = (props: Props) => {
         id={name}
         value={value}
         onChange={handleInputChange}
+        autoFocus={autoFocus}
       />
       <FormErrorMessage>This field is required</FormErrorMessage>
     </FormControl>

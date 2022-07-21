@@ -1,5 +1,5 @@
 import { Button, Center, HStack, VStack, useToast } from "@chakra-ui/react";
-import { useMemo, useCallback, useState } from "react";
+import { useMemo, useCallback, useState, KeyboardEvent } from "react";
 import { InputOptions } from "../models/InputOptions";
 import ControlledInput from "./ControlledInput";
 import { useAuthentication } from "../utils/hooks";
@@ -63,8 +63,8 @@ export const AuthForm = (props: Props) => {
 
     // @ts-ignore
     fetch(`${import.meta.env.VITE_SERVER_URL}/${authType}`, options)
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         if (response.isAuthenticated) {
           setIsAuthenticated(true);
         } else {
@@ -77,16 +77,27 @@ export const AuthForm = (props: Props) => {
           });
         }
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, [inputState]);
 
   const handleSubmit = useCallback(() => {
     setSubmissionAttempted(true);
-    if (validateForm()) submitFormRequest();
+    if (validateForm()) {
+      submitFormRequest();
+    }
   }, [inputState]);
 
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "Enter") {
+        handleSubmit();
+      }
+    },
+    [handleSubmit]
+  );
+
   return (
-    <Center width="100%">
+    <Center width="100%" onKeyDown={handleKeyDown}>
       <VStack spacing={5} width={["100%", "80%", "80%"]}>
         {authType === "register" ? (
           <HStack spacing={5} width="100%">
@@ -109,6 +120,7 @@ export const AuthForm = (props: Props) => {
           value={inputState.email}
           setInputValue={setInputValue}
           submissionAttempted={submissionAttempted}
+          autoFocus={authType === "login"}
         />
         <ControlledInput
           {...inputOptions.password}

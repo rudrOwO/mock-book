@@ -12,7 +12,6 @@ export const UploadStoryButton = (props: Props) => {
   return (
     <Button
       position="absolute"
-      height="60px"
       left={["75%", "75%", "80%"]}
       top="80vh"
       colorScheme="blue"
@@ -21,7 +20,12 @@ export const UploadStoryButton = (props: Props) => {
       onClick={handleClick}
     >
       <RiImageAddFill fontSize="30px" />
-      <Text display={["none", "none", "inline"]} fontSize="xl" ml="15px" mt="5px">
+      <Text
+        display={["none", "none", "inline"]}
+        fontSize="xl"
+        ml="15px"
+        mt="5px"
+      >
         Post Story
       </Text>
     </Button>
