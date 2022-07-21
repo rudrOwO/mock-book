@@ -16,19 +16,17 @@ export const LogoutButton = () => {
   }, []);
 
   return (
-    <Tooltip label=" Log Out" hasArrow shouldWrapChildren>
       <IconButton
+      size="sm"
         colorScheme="blue"
         aria-label="Log Out"
         justifyContent="center"
         _hover={{
           background: "blue.400",
         }}
-        size="md"
         onClick={handleLogout}
       >
-        <MdLogout size="50%" />
+        <MdLogout size="65%"  />
       </IconButton>
-    </Tooltip>
   );
 };
