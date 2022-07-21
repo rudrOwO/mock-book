@@ -2,14 +2,16 @@ import { StatusInterface } from "../models/Status";
 import { useDisclosure, VStack } from "@chakra-ui/react";
 import { CreateStatusButton } from "../components/CreateStatusButton";
 import { CreateStatusModal } from "../components/CreateStatusModal";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoadingSpinner } from "../components/LoadingSpinner";
+import { useScroll } from "../utils/hooks";
 import Status from "../components/Status";
 
 export const StatusSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [statusList, setStatusList] = useState<[StatusInterface] | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [sectionRef, scrollTo] = useScroll<HTMLDivElement>();
 
   useEffect(() => {
     if (!isOpen) {
@@ -18,10 +20,11 @@ export const StatusSection = () => {
           method: "GET",
           credentials: "include",
         })
-          .then(response => response.json())
-          .then(response => {
+          .then((response) => response.json())
+          .then((response) => {
             setIsLoading(false);
             setStatusList(response);
+            scrollTo({ top: 0, behavior: "smooth" });
           });
       }, 100);
     }
@@ -33,7 +36,7 @@ export const StatusSection = () => {
       {isLoading ? (
         <LoadingSpinner size="xl" />
       ) : (
-        <VStack overflow={"scroll"} flex={7} width="100vw" spacing="8">
+        <VStack ref={sectionRef} overflow="scroll" width="100vw" spacing="8">
           {statusList?.map((status: StatusInterface) => (
             <Status
               key={status.createdAt}

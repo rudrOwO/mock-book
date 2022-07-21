@@ -11,7 +11,7 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 interface Props {
   isOpen: boolean;
@@ -23,15 +23,19 @@ export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
   const [submissionAttempted, setSubmissionAttempted] = useState(false);
   const showError = content === "" && submissionAttempted;
 
-  const handleInputChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  }, []);
+  const handleInputChange = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+    },
+    []
+  );
 
   const handlePostSubmission = useCallback(() => {
     setSubmissionAttempted(true);
-    onClose();
 
     if (content) {
+      onClose();
+
       fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
         method: "POST",
         headers: {
@@ -41,6 +45,9 @@ export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
         body: JSON.stringify({
           content: content,
         }),
+      }).then((_) => {
+        setContent("");
+        setSubmissionAttempted(false);
       });
     }
   }, [content]);

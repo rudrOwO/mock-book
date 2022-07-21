@@ -8,7 +8,6 @@ interface Props {
 export const CreateStatusButton = ({ onOpen }: Props) => (
   <Button
     position="absolute"
-    height="60px"
     left={["75%", "75%", "80%"]}
     top="90vh"
     colorScheme="blue"

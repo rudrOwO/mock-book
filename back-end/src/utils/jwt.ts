@@ -8,6 +8,6 @@ export const createJWT = (req: Request, res: Response) => {
     maxAge: 3600000 * 24 * 7, // Expires after 7 days
     httpOnly: true, // XSS Protection
     secure: false, // MITM Protection
-    sameSite: "lax", // CSRF Protection
+    sameSite: "none", // CSRF Protection
   });
 };
