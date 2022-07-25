@@ -41,7 +41,7 @@ export const StorySection = () => {
   useEffect(fetchImageSources, []);
 
   return (
-    <Flex marginY="20px" justifyContent={"space-evenly"} alignItems={"center"}>
+    <Flex marginY="20px" justifyContent="space-evenly" alignItems="center">
       <chakra.form
         display="none"
         ref={formRef}

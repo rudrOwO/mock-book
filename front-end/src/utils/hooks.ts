@@ -8,11 +8,10 @@ export const useAuthentication = () => {
 };
 
 export const useScroll = <T extends HTMLElement>() => {
-  const elementRef = useRef<T>(null)
-  const scrollCallback  = (options: ScrollToOptions) => {
-    elementRef.current?.scrollTo(options)
-  }
-  
-  return [elementRef, scrollCallback] as [RefObject<T>, (arg: ScrollToOptions) => void]
-  
-}
+  const elementRef = useRef<T>(null);
+  const scrollCallback = (options: ScrollToOptions) => {
+    elementRef.current?.scrollTo(options);
+  };
+
+  return [elementRef, scrollCallback] as [RefObject<T>, (arg: ScrollToOptions) => void];
+};
