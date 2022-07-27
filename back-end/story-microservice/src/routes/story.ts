@@ -4,6 +4,7 @@ import { removeOldest } from "../utils/removeOldest";
 import { Story } from "../models/Story";
 import { minioClient } from "../server";
 import multer from "multer";
+import sharp from "sharp";
 import { arrayBuffer } from "stream/consumers";
 
 export const story = Router();
@@ -16,7 +17,8 @@ story.post(
     const createdDoc = await Story.create({});
     try {
       const imageName = String(createdDoc._id);
-      await minioClient.putObject("story", imageName, req.file.buffer);
+      const resizedImage = await sharp(req.file.buffer).resize(350, 200).toBuffer();
+      await minioClient.putObject("story", imageName, resizedImage);
 
       const docSize = await Story.estimatedDocumentCount();
       if (docSize > 10) await removeOldest(Story);
@@ -54,6 +56,8 @@ story.get("/:src", async (req: SecureRequest, res: Response) => {
     const imgBlob = await minioClient.getObject("story", objName);
     const buffer = await arrayBuffer(imgBlob);
     const array = new Uint8Array(buffer);
+
+    res.set("Cache-Control", "private, max-age=60, stale-while-revalidate=600");
     res.write(array);
     res.status(200).send();
   } catch (error) {
