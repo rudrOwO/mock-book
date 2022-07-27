@@ -5,7 +5,13 @@ import { StorySection } from "../components/StorySection";
 
 export const HomePage = () => {
   return (
-    <Flex flexDir="column" alignItems="center" height="100vh" width="100vw" bg="gray.100">
+    <Flex
+      flexDir="column"
+      alignItems="center"
+      height="100vh"
+      width="100vw"
+      bg="gray.100"
+    >
       <Navbar />
       <StorySection />
       <StatusSection />

@@ -12,8 +12,10 @@
 - Express
 - Node
 - MongoDB
+- Nginx
 
 <img width="200px" src="https://upload.wikimedia.org/wikipedia/commons/9/94/MERN-logo.png" />
+<img width="200px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/1280px-Nginx_logo.svg.png" />
 
 ### Responsive Design
 

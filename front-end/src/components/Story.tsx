@@ -11,7 +11,7 @@ const Story = ({ src }: Props) => (
     fit="contain"
     align="center"
     borderRadius="lg"
-    src={`${import.meta.env.VITE_SERVER_STORY}/story/${src}`}
+    src={`${import.meta.env.VITE_SERVER_URL}/story/${src}`}
   />
 );
 

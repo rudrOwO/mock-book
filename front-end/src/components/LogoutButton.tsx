@@ -7,7 +7,7 @@ export const LogoutButton = () => {
   const { setIsAuthenticated } = useAuthentication();
 
   const handleLogout = useCallback(() => {
-    fetch(`${import.meta.env.VITE_SERVER_AUTH}/logout`, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/logout`, {
       method: "GET",
       credentials: "include",
     })

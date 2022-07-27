@@ -16,7 +16,7 @@ export const StatusSection = () => {
   useEffect(() => {
     if (!isOpen) {
       setTimeout(() => {
-        fetch(`${import.meta.env.VITE_SERVER_STATUS}/status`, {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
           method: "GET",
           credentials: "include",
         })

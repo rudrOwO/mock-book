@@ -12,7 +12,7 @@ export const StorySection = () => {
   const [stackRef, scrollTo] = useScroll<HTMLDivElement>();
 
   const fetchImageSources = useCallback(() => {
-    fetch(`${import.meta.env.VITE_SERVER_STORY}/story`, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/story`, {
       method: "GET",
       credentials: "include",
     })
@@ -27,7 +27,7 @@ export const StorySection = () => {
     const formData = new FormData();
     formData.append("story", inputRef.current!.files![0]);
 
-    fetch(`${import.meta.env.VITE_SERVER_STORY}/story`, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/story`, {
       method: "POST",
       credentials: "include",
       body: formData,

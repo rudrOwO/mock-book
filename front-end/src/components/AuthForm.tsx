@@ -62,9 +62,9 @@ export const AuthForm = (props: Props) => {
     };
 
     // @ts-ignore
-    fetch(`${import.meta.env.VITE_SERVER_AUTH}/${authType}`, options)
-      .then(response => response.json())
-      .then(response => {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/${authType}`, options)
+      .then((response) => response.json())
+      .then((response) => {
         if (response.isAuthenticated) {
           setIsAuthenticated(true);
         } else {
@@ -77,7 +77,7 @@ export const AuthForm = (props: Props) => {
           });
         }
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, [inputState]);
 
   const handleSubmit = useCallback(() => {

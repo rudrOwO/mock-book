@@ -1,7 +1,6 @@
 import { useContext, useRef, RefObject } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { AuthContextProps } from "../contexts/AuthContext";
-import { InputOptions } from "../models/InputOptions";
 
 export const useAuthentication = () => {
   return useContext(AuthContext) as AuthContextProps;
