@@ -22,6 +22,5 @@ export const authorize = (req: Request, res: Response, next: () => void) => {
     res.status(500).json({
       errorMessage: "Internal Server Error",
     });
-    console.log(error);
   }
 };

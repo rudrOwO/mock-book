@@ -1,13 +1,11 @@
 import { Router, Request, Response } from "express";
 import fetch from "node-fetch";
 
-export const authorize = Router();
-
 export interface SecureRequest extends Request {
   userEmail?: string;
 }
 
-authorize.post("/", async (req: SecureRequest, res: Response, next: () => void) => {
+export const authorize = async (req: SecureRequest, res: Response, next: () => void) => {
   try {
     const response = await fetch(process.env.AUTH_SERVICE, {
       method: "GET",
@@ -16,13 +14,17 @@ authorize.post("/", async (req: SecureRequest, res: Response, next: () => void) 
       },
     });
 
-    const { userEmail } = await response.json();
-    req.userEmail = userEmail;
-    next();
+    const { isAuthenticated, userEmail } = await response.json();
+
+    if (isAuthenticated) {
+      req.userEmail = userEmail;
+      next();
+    } else {
+      res.status(401).send("<h1>Access Denied</h1>");
+    }
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       errorMessage: "Internal Server Error",
     });
   }
-});
+};
