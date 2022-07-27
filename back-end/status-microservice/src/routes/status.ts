@@ -1,5 +1,5 @@
-import { SecureRequest } from "../middleware/auth";
 import { Router, Response } from "express";
+import { SecureRequest } from "../middleware/auth";
 import { Status } from "../models/Status";
 import { User } from "../models/User";
 import { removeOldest } from "../utils/removeOldest";
@@ -19,7 +19,7 @@ status.post("/", async (req: SecureRequest, res: Response) => {
 
     res.status(200).send();
   } catch (error) {
-    console.log(req.body);
+    console.log(error);
     res.status(500).json({
       errorMessage: "Internal Server Error",
     });

@@ -7,7 +7,7 @@ export const createJWT = (req: Request, res: Response) => {
   res.cookie("mockBookJWT", mockBookJWT, {
     maxAge: 3600000 * 24 * 7, // Expires after 7 days
     httpOnly: true, // XSS Protection
-    secure: false, // MITM Protection
-    sameSite: "none", // CSRF Protection
+    secure: true, // MITM Protection
+    sameSite: "strict", // CSRF Protection
   });
 };

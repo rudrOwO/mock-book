@@ -1,11 +1,10 @@
-import { Router, Response } from "express";
-import { SecureRequest } from "../middleware/auth";
+import { Router, Request, Response } from "express";
 import { User } from "../models/User";
 import { createJWT } from "../utils/jwt";
 
 export const login = Router();
 
-login.post("/", async (req: SecureRequest, res: Response) => {
+login.post("/", async (req: Request, res: Response) => {
   try {
     if (await User.exists({ email: req.body.email, password: req.body.password })) {
       if (!req.cookies.mockBookJWT) {
