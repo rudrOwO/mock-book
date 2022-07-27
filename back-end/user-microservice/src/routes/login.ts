@@ -1,5 +1,5 @@
 import { Router, Response } from "express";
-import { SecureRequest } from "../middleware/auth";
+import { SecureRequest } from "./auth";
 import { User } from "../models/User";
 import { createJWT } from "../utils/jwt";
 

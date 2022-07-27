@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { status } from "./routes/status";
+import { authorize } from "./middleware/auth";
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Routers
-app.use("/status", status);
+app.use("/status", authorize, status);
 
 // Connect to MongoDB and then spin up Server
 mongoose

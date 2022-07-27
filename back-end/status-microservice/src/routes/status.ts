@@ -1,23 +1,14 @@
-import { Router, Request, Response } from "express";
-import fetch from "node-fetch";
+import { Router, Response } from "express";
+import { SecureRequest } from "../middleware/auth";
 import { Status } from "../models/Status";
 import { User } from "../models/User";
 import { removeOldest } from "../utils/removeOldest";
 
 export const status = Router();
 
-status.post("/", async (req: Request, res: Response) => {
+status.post("/", async (req: SecureRequest, res: Response) => {
   try {
-    const response = await fetch(process.env.AUTH_SERVICE, {
-      method: "GET",
-      headers: {
-        Cookie: `mockBookJWT=${req.cookies.mockBookJWT}`,
-      },
-    });
-
-    const { userEmail } = await response.json();
-
-    const user = await User.findOne({ email: userEmail });
+    const user = await User.findOne({ email: req.userEmail });
     await Status.create({
       userName: `${user.firstname} ${user.lastname}`,
       content: req.body.content,
@@ -35,7 +26,7 @@ status.post("/", async (req: Request, res: Response) => {
   }
 });
 
-status.get("/", async (req: Request, res: Response) => {
+status.get("/", async (req: SecureRequest, res: Response) => {
   try {
     const allStatus = await Status.find({}).sort({ createdAt: "descending" });
     res.status(200).json(allStatus);

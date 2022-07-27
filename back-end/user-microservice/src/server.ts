@@ -5,8 +5,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { register } from "./routes/register";
 import { login } from "./routes/login";
-import { authorize } from "./middleware/auth";
-import { home } from "./routes/home";
+import { authorize } from "./routes/auth";
 import { logout } from "./routes/logout";
 
 const app = express();
@@ -30,8 +29,8 @@ app.use(express.json());
 // Routers
 app.use("/register", register);
 app.use("/login", login);
-app.use("/", authorize, home);
 app.use("/logout", logout);
+app.use("/", authorize);
 
 // Connect to MongoDB and then spin up Server
 mongoose
