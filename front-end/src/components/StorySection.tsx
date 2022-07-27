@@ -12,12 +12,12 @@ export const StorySection = () => {
   const [stackRef, scrollTo] = useScroll<HTMLDivElement>();
 
   const fetchImageSources = useCallback(() => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}/story`, {
+    fetch(`${import.meta.env.VITE_SERVER_STORY}/story`, {
       method: "GET",
       credentials: "include",
     })
-      .then((response) => response.json())
-      .then((response) => {
+      .then(response => response.json())
+      .then(response => {
         setSrcList(response);
         scrollTo({ left: 0, behavior: "smooth" });
       });
@@ -27,11 +27,11 @@ export const StorySection = () => {
     const formData = new FormData();
     formData.append("story", inputRef.current!.files![0]);
 
-    fetch(`${import.meta.env.VITE_SERVER_URL}/story`, {
+    fetch(`${import.meta.env.VITE_SERVER_STORY}/story`, {
       method: "POST",
       credentials: "include",
       body: formData,
-    }).then((_) => fetchImageSources());
+    }).then(_ => fetchImageSources());
   }, []);
 
   const handleClick = useCallback(() => {

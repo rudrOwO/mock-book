@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import * as Minio from "minio";
 import { story } from "./routes/story";
+import { authorize } from "./middleware/auth";
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Routers
-app.use("/story", story);
+app.use("/story", authorize, story);
 
 // Connect to MongoDB and then spin up Server
 mongoose

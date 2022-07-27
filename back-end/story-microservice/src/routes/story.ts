@@ -17,6 +17,8 @@ story.post(
     try {
       const imageName = String(createdDoc._id);
 
+      console.log(req.file);
+
       await minioClient.putObject("story", imageName, req.file.buffer);
 
       const docSize = await Story.estimatedDocumentCount();
@@ -25,6 +27,7 @@ story.post(
       res.status(200).send();
     } catch (error) {
       await Story.deleteOne({ _id: createdDoc._id });
+      console.log(error);
 
       res.status(500).json({
         errorMessage: "Internal Server Error",
