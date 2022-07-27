@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "composite": true,
-    "module": "commonJS",
-    "moduleResolution": "node",
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*"]
-}

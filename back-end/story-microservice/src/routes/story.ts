@@ -16,9 +16,6 @@ story.post(
     const createdDoc = await Story.create({});
     try {
       const imageName = String(createdDoc._id);
-
-      console.log(req.file);
-
       await minioClient.putObject("story", imageName, req.file.buffer);
 
       const docSize = await Story.estimatedDocumentCount();
