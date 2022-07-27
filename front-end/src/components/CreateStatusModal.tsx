@@ -36,7 +36,7 @@ export const CreateStatusModal = ({ isOpen, onClose }: Props) => {
     if (content) {
       onClose();
 
-      fetch(`${import.meta.env.VITE_SERVER_URL}/status`, {
+      fetch(`${import.meta.env.VITE_SERVER_STATUS}/status`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

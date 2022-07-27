@@ -5,7 +5,11 @@ export interface SecureRequest extends Request {
   userEmail?: string;
 }
 
-export const authorize = (req: SecureRequest, res: Response, next: () => void) => {
+export const authorize = (
+  req: SecureRequest,
+  res: Response,
+  next: () => void
+) => {
   try {
     if (req.cookies.mockBookJWT) {
       req.userEmail = jwt.verify(
@@ -16,7 +20,6 @@ export const authorize = (req: SecureRequest, res: Response, next: () => void) =
     } else {
       res.status(401).json({
         isAuthenticated: false,
-        userEmail: req.userEmail,
       });
     }
   } catch (error) {

@@ -2,7 +2,7 @@
   "name": "user-microservice",
   "version": "0.0.1",
   "description": "",
-  "main": "./src/server.ts",
+  "main": "./build/src/server.js",
   "scripts": {
     "dev": "tsc --watch --outDir ./build/ & nodemon ./build/src/server.js"
   },

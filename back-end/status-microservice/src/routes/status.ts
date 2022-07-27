@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import fetch from "cross-fetch";
+import fetch from "node-fetch";
 import { Status } from "../models/Status";
 import { User } from "../models/User";
 import { removeOldest } from "../utils/removeOldest";
@@ -11,12 +11,11 @@ status.post("/", async (req: Request, res: Response) => {
     const response = await fetch(process.env.AUTH_SERVICE, {
       method: "GET",
       headers: {
-        Cookie: req.cookies,
+        Cookie: `mockBookJWT=${req.cookies.mockBookJWT}`,
       },
     });
 
     const { userEmail } = await response.json();
-    console.log("User Email : ", userEmail);
 
     const user = await User.findOne({ email: userEmail });
     await Status.create({
@@ -29,7 +28,7 @@ status.post("/", async (req: Request, res: Response) => {
 
     res.status(200).send();
   } catch (error) {
-    console.log(req.body);
+    console.log(error);
     res.status(500).json({
       errorMessage: "Internal Server Error",
     });
