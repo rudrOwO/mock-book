@@ -1,16 +1,14 @@
 import { Router, Response } from "express";
 import { SecureRequest } from "../middleware/auth";
 import { Status } from "../models/Status";
-import { User } from "../models/User";
 import { removeOldest } from "../utils/removeOldest";
 
 export const status = Router();
 
 status.post("/", async (req: SecureRequest, res: Response) => {
   try {
-    const user = await User.findOne({ email: req.userEmail });
     await Status.create({
-      userName: `${user.firstname} ${user.lastname}`,
+      userName: req.userName,
       content: req.body.content,
     });
 

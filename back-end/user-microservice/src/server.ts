@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { register } from "./routes/register";
 import { login } from "./routes/login";
-import { authorize } from "./routes/auth";
+import { authorize } from "./services/authService";
 import { logout } from "./routes/logout";
 
 const app = express();

@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
+import { User } from "../models/User";
 import jwt from "jsonwebtoken";
 
-export const authorize = (req: Request, res: Response, next: () => void) => {
+export const authorize = async (req: Request, res: Response, next: () => void) => {
   try {
     if (req.cookies.mockBookJWT) {
       const userEmail = jwt.verify(
@@ -9,9 +10,12 @@ export const authorize = (req: Request, res: Response, next: () => void) => {
         process.env.JWT_HASH_KEY
       ) as string;
 
+      const userDoc = await User.findOne({ email: userEmail });
+      const userName = `${userDoc.firstname} ${userDoc.lastname}`;
+
       res.status(200).json({
         isAuthenticated: true,
-        userEmail,
+        userName,
       });
     } else {
       res.status(401).json({

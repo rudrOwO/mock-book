@@ -14,10 +14,9 @@ export const authorize = async (req: SecureRequest, res: Response, next: () => v
       },
     });
 
-    const { isAuthenticated, userEmail } = await response.json();
+    const { isAuthenticated } = await response.json();
 
     if (isAuthenticated) {
-      req.userEmail = userEmail;
       next();
     } else {
       res.status(401).send("<h1>Access Denied</h1>");

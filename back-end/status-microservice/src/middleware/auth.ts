@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import fetch from "node-fetch";
 
 export interface SecureRequest extends Request {
-  userEmail?: string;
+  userName?: string;
 }
 
 export const authorize = async (req: SecureRequest, res: Response, next: () => void) => {
@@ -14,10 +14,10 @@ export const authorize = async (req: SecureRequest, res: Response, next: () => v
       },
     });
 
-    const { isAuthenticated, userEmail } = await response.json();
+    const { isAuthenticated, userName } = await response.json();
 
     if (isAuthenticated) {
-      req.userEmail = userEmail;
+      req.userName = userName;
       next();
     } else {
       res.status(401).send("<h1>Access Denied</h1>");
