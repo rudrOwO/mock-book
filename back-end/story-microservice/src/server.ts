@@ -46,3 +46,16 @@ export const minioClient = new Minio.Client({
   port: Number(process.env.MINIO_PORT),
   useSSL: false,
 });
+
+// Create bucket 'story' if it doesn't exist already
+minioClient.bucketExists("story", function (err, exists) {
+  if (err) {
+    return console.log(err);
+  }
+  if (!exists) {
+    minioClient.makeBucket("story", "us-east-1", function (err) {
+      if (err) return console.log("Error creating bucket.", err);
+      console.log('Story Bucket Created".');
+    });
+  }
+});
