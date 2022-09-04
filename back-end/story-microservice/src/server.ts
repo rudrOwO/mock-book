@@ -12,6 +12,7 @@ const app = express();
 app.use(
   cors({
     origin: [
+      "http://nginx:80",
       "http://localhost:3000",
       "http://localhost:4173",
       "http://localhost:5001",

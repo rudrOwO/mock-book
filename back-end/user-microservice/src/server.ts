@@ -13,6 +13,7 @@ const app = express();
 app.use(
   cors({
     origin: [
+      "http://nginx:80",
       "http://localhost:3000",
       "http://localhost:5002",
       "http://localhost:4173",
@@ -29,7 +30,7 @@ app.use(express.json());
 app.use("/register", register);
 app.use("/login", login);
 app.use("/logout", logout);
-app.use("/", authorize);
+app.use("/auth", authorize);
 
 // Connect to MongoDB and then spin up Server
 mongoose

@@ -4,7 +4,7 @@ WORKDIR /story-microservice
 
 ENV PORT=5003
 ENV MINIO_PORT=9000
-ENV AUTH_SERVICE=http://user_microservice:5001
+ENV AUTH_SERVICE=http://user_microservice:5001/auth
 ENV HOST=minio
 ENV MONGODB_URL=mongodb://storyDB:27017/storyDB
 ENV MINIO_ACCESS_KEY=minioadmin

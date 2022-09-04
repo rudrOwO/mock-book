@@ -8,6 +8,7 @@ services:
     ports:
       - 6969:80
     volumes:
+      - ./front-end/dist:/spa
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - user_microservice

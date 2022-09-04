@@ -10,7 +10,7 @@ function App() {
   const { isAuthenticated, setIsAuthenticated } = useAuthentication();
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_SERVER_URL, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/auth`, {
       method: "GET",
       credentials: "include",
     })
@@ -23,13 +23,7 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      {isLoading ? (
-        <LoadingSpinner size="xl" />
-      ) : isAuthenticated ? (
-        <HomePage />
-      ) : (
-        <AuthPage />
-      )}
+      {isLoading ? <LoadingSpinner size="xl" /> : isAuthenticated ? <HomePage /> : <AuthPage />}
     </ChakraProvider>
   );
 }
