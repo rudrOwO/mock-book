@@ -25,7 +25,6 @@
 
 - Linux distro running on a x86_64 architecture CPU
 - Around 4GB RAM
-- Around 10 GB storage space
 - [More Details](https://docs.docker.com/desktop/install/linux-install/#system-requirements)
 
 #### Software Dependencies
@@ -35,6 +34,7 @@
 
 #### Deploy Locally
 
+- Activate the docker daemon by running `sudo systemctl start docker`
 - Clone the repo `git clone https://github.com/rudrowo/mock-book.git`
 - `cd ./mock-book`
 - `sudo docker-compose up` &nbsp; :warning: This will take some time
