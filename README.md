@@ -5,7 +5,6 @@
 - User Authentication
 - Post Status
 - Post Stories
-- Distributed & Orchestrated with Docker
 
 ### Technologies Used
 
@@ -20,13 +19,30 @@
 <img width="200px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/1280px-Nginx_logo.svg.png" />
 <img width="200px" src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" />
 
-### :eyes: :eyes: :eyes:
+### Run on Your Machine
+
+#### System Requirements
+
+> - Linux Distro running on a x86_64 architecture CPU
+> - Around 4GB RAM
+> - Around 10 GB storage space
+> - [Details](https://docs.docker.com/desktop/install/linux-install/#system-requirements)
+
+#### Software Dependencies
+
+> - docker | `sudo apt-get install docker`
+> - docker-compose | `sudo apt-get install docker-compose`
+
+#### Deploy Locally
+
+> - Clone the repo | `git clone https://github.com/rudrowo/mock-book.git`
+> - `cd ./mock-book/back-end`
+> - `sudo docker-compose up`
+> - Visit `localhost:6969` :smirk: to view deployment
+
+### :eyes: :eyes:
+
 <div >
 <img height="400px" src="https://drive.google.com/uc?id=13qYOIfnqjNze3Xrjdag57BPr6CX2uu2Q" />
-
-### Docker Images of Microservices
-- [User Microservice](https://hub.docker.com/repository/docker/rudrowo/user_microservice)
-- [Status Microservice](https://hub.docker.com/repository/docker/rudrowo/status_microservice)
-- [Story Microservice](https://hub.docker.com/repository/docker/rudrowo/story_microservice)
 
 </div>
