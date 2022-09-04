@@ -2,7 +2,11 @@ FROM node:latest
 
 WORKDIR /status-microservice
 
-COPY ./package*.json ./
+ENV PORT=5002
+ENV AUTH_SERVICE=http://user_microservice:5001
+ENV MONGODB_URL=mongodb://statusDB:27017/statusDB
+
+COPY ./package.json ./
 
 RUN npm i
 
