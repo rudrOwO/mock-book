@@ -10,6 +10,6 @@ COPY . .
 
 RUN npx tsc --outDir ./build/
 
-EXPOSE 5001 
+EXPOSE 5001  
 
 CMD ["node", "."]
