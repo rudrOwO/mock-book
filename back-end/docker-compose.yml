@@ -22,37 +22,41 @@ services:
   status_microservice:
     depends_on:
       - user_microservice
-      - mongodb
+      - statusDB
     image: rudrowo/status_microservice
     restart: unless-stopped
-    ports: 
-      - 5002:5002
   
   story_microservice:
     depends_on:
       - user_microservice
       - minio
-      - mongodb
+      - storyDB
     image: rudrowo/story_microservice
     restart: unless-stopped
-    ports: 
-      - 5003:5003
 
   user_microservice:
     depends_on:
-      - mongodb
+      - userDB
     image: rudrowo/user_microservice
     restart: unless-stopped
-    ports: 
-      - 5001:5001
   
-  mongodb:
+  userDB:
     image: bitnami/mongodb:6.0
     restart: unless-stopped
-    ports:
-      - 27017:27017
     volumes:
-      - mongodb_data:/bitnami/mongodb
+      - /bitnami/mongodb
+        
+  statusDB:
+    image: bitnami/mongodb:6.0
+    restart: unless-stopped
+    volumes:
+      - /bitnami/mongodb
+        
+  storyDB:
+    image: bitnami/mongodb:6.0
+    restart: unless-stopped
+    volumes:
+      - /bitnami/mongodb
 
   minio:
     image: bitnami/minio:2022
@@ -65,8 +69,7 @@ services:
     volumes:
       - minio_data:/data
 
+
 volumes:
-  mongodb_data:
-    driver: local
   minio_data:
     driver: local
