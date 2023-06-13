@@ -29,16 +29,17 @@
 
 #### Software Dependencies
 
-- docker `sudo apt-get install docker`
-- docker-compose `sudo apt-get install docker-compose`
+- [docker engine](https://docs.docker.com/engine/install/#server)
+- [docker compose plugin](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
 
 #### Deploy Locally
 
 - Activate the docker daemon by running `sudo systemctl start docker`
 - Clone the repo `git clone https://github.com/rudrowo/mock-book.git`
 - `cd ./mock-book`
-- `sudo docker-compose up` &nbsp; :warning: This will take some time
+- `sudo docker compose up -d` &nbsp; :warning: This will take some time
 - After that, visit `localhost:6969` to view deployment
+- kill deployment with `sudo docker compose down`
 
 ### :eyes: :eyes:
 
