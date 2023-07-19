@@ -24,7 +24,7 @@
 #### System Requirements
 
 - Linux distro running on a x86_64 architecture CPU
-- Around 4GB RAM
+- Around 2GB RAM
 - [More Details](https://docs.docker.com/desktop/install/linux-install/#system-requirements)
 
 #### Software Dependencies
